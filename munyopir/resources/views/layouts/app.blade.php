@@ -49,6 +49,9 @@
                 </form>
             @else
                 <nav class="flex items-center gap-2 sm:gap-4" aria-label="Navigasi utama">
+                    @if (request()->routeIs('home'))
+                        <a href="#tentang" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-50">Tentang</a>
+                    @endif
                     <a href="{{ route('login') }}" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-800 hover:bg-brand-50">Masuk</a>
                     <a href="{{ route('register') }}" class="rounded-lg bg-brand-900 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">Daftar</a>
                 </nav>

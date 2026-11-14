@@ -151,6 +151,45 @@
         </div>
     </section>
 
+    <section id="tentang" class="scroll-mt-8 py-12 sm:py-16">
+        <div class="mx-auto max-w-2xl text-center">
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent-700">Kenali pembuatnya</p>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight text-brand-950 sm:text-4xl">Tentang developer</h2>
+            <p class="mt-4 text-base leading-7 text-brand-800/80">Hafli Setiawan adalah mahasiswa dan pengembang Munyopir yang antusias terhadap teknologi dan pengembangan solusi digital.</p>
+        </div>
+
+        <article class="mx-auto mt-8 grid max-w-4xl overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-sm md:grid-cols-[minmax(15rem,0.8fr)_minmax(0,1.2fr)]">
+            <div class="flex flex-col items-center justify-center bg-sky-50 p-7 text-center sm:p-9">
+                <div class="grid size-24 place-items-center rounded-3xl bg-brand-900 text-3xl font-bold tracking-tight text-white shadow-lg shadow-brand-900/15" aria-hidden="true">
+                    HS
+                </div>
+                <h3 class="mt-5 text-2xl font-bold tracking-tight text-brand-950">Hafli Setiawan</h3>
+                <p class="mt-2 text-sm font-medium text-accent-700">Mahasiswa / Pengembang Munyopir</p>
+            </div>
+
+            <div class="flex flex-col justify-center p-6 sm:p-9">
+                <p class="text-sm font-semibold uppercase tracking-[0.14em] text-brand-700/70">Profil singkat</p>
+                <p class="mt-3 text-base leading-7 text-brand-800/80">Antusias terhadap teknologi dan pengembangan solusi digital. Munyopir merupakan aplikasi web untuk membantu rutinitas sopir pribadi menjadi lebih tertata.</p>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="https://github.com/hafli-setiawan27" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-200 px-4 py-2.5 text-sm font-semibold text-brand-800 transition hover:border-accent-600 hover:text-accent-700 focus:outline-none focus:ring-4 focus:ring-accent-600/10">
+                        <svg viewBox="0 0 24 24" fill="none" class="size-4" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                            <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.1-1.5 6.1-6.7a5.2 5.2 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.6s-1.2-.4-3.8 1.4a13.2 13.2 0 0 0-6.9 0C5.4 1.2 4.2 1.6 4.2 1.6a4.8 4.8 0 0 0-.1 3.6 5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.1 6.4 6.1 6.7a3.4 3.4 0 0 0-.9 2.6V22"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/hafli-setiawan" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-200 px-4 py-2.5 text-sm font-semibold text-brand-800 transition hover:border-accent-600 hover:text-accent-700 focus:outline-none focus:ring-4 focus:ring-accent-600/10">
+                        <svg viewBox="0 0 24 24" fill="none" class="size-4" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                            <rect x="3" y="3" width="18" height="18" rx="3"/>
+                            <path d="M8 10v7m0-10v.01M12 17v-7m0 3a3 3 0 0 1 6 0v4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+
     <section class="mb-2 rounded-3xl border border-sky-200 bg-sky-50 px-6 py-8 text-center sm:px-10 sm:py-10">
         <h2 class="text-2xl font-bold tracking-tight text-brand-950">Mulai dengan jadwal yang lebih rapi</h2>
         <p class="mx-auto mt-3 max-w-xl text-sm leading-6 text-brand-800/80">Buat akun Munyopir dan simpan rencana perjalanan Anda dengan mudah.</p>
