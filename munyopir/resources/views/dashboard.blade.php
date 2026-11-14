@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="rounded-3xl bg-brand-900 px-6 py-8 text-white shadow-xl shadow-brand-900/10 sm:px-9 sm:py-10">
-        <p class="text-sm font-semibold text-lime-400">Ruang kerja sopir pribadi</p>
+        <p class="text-sm font-semibold text-sky-400">Ruang kerja sopir pribadi</p>
         <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Halo, {{ $user->name }}.</h1>
         <p class="mt-3 max-w-2xl text-sm leading-6 text-brand-100/90 sm:text-base">Satu tempat untuk menjaga aktivitas dan kendaraan tetap siap menemani perjalanan.</p>
     </section>
@@ -22,14 +22,14 @@
 
         <div class="mt-5 grid gap-4 sm:grid-cols-3">
             <article class="rounded-2xl border border-brand-100 bg-white p-5 shadow-sm sm:col-span-2">
-                <p class="text-sm text-slate-500">Kendaraan</p>
+                <p class="text-sm text-brand-700/70">Kendaraan</p>
                 <p class="mt-2 text-xl font-bold text-brand-950">{{ $vehicle->name }}</p>
-                <p class="mt-1 text-sm font-medium uppercase tracking-wide text-slate-600">{{ $vehicle->plate_number }}</p>
+                <p class="mt-1 text-sm font-medium uppercase tracking-wide text-brand-800/80">{{ $vehicle->plate_number }}</p>
             </article>
             <article class="rounded-2xl border border-brand-100 bg-white p-5 shadow-sm">
-                <p class="text-sm text-slate-500">Odometer terakhir</p>
-                <p class="mt-2 text-xl font-bold text-brand-950">{{ number_format($vehicle->current_odometer, 0, ',', '.') }} <span class="text-sm font-semibold text-slate-500">km</span></p>
-                <p class="mt-1 text-sm text-slate-500">Perbarui setelah mencatat jarak tempuh.</p>
+                <p class="text-sm text-brand-700/70">Odometer terakhir</p>
+                <p class="mt-2 text-xl font-bold text-brand-950">{{ number_format($vehicle->current_odometer, 0, ',', '.') }} <span class="text-sm font-semibold text-brand-700/70">km</span></p>
+                <p class="mt-1 text-sm text-brand-700/70">Perbarui setelah mencatat jarak tempuh.</p>
             </article>
         </div>
     </section>
@@ -50,24 +50,24 @@
                 <article class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-brand-100 bg-white p-4 shadow-sm sm:p-5">
                     <div class="min-w-0">
                         <h3 class="truncate font-bold text-brand-950">{{ $trip->destination }}</h3>
-                        <p class="mt-1 truncate text-sm text-slate-600">Jemput di {{ $trip->pickup_location }}</p>
+                        <p class="mt-1 truncate text-sm text-brand-800/80">Jemput di {{ $trip->pickup_location }}</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <span class="text-sm font-semibold text-slate-700">{{ $trip->pickup_at->format('d/m/Y, H:i') }}</span>
+                        <span class="text-sm font-semibold text-brand-800">{{ $trip->pickup_at->format('d/m/Y, H:i') }}</span>
                         <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset {{ $trip->status->badgeClasses() }}">
                             {{ $trip->status->label() }}
                         </span>
                     </div>
                 </article>
             @empty
-                <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-6">
-                    <p class="font-semibold text-slate-900">Belum ada perjalanan mendatang</p>
-                    <p class="mt-1 text-sm text-slate-600">Tambahkan jadwal agar rencana penjemputan mudah dipantau.</p>
+                <div class="rounded-2xl border border-dashed border-brand-200 bg-white p-6">
+                    <p class="font-semibold text-brand-950">Belum ada perjalanan mendatang</p>
+                    <p class="mt-1 text-sm text-brand-800/80">Tambahkan jadwal agar rencana penjemputan mudah dipantau.</p>
                 </div>
             @endforelse
         </div>
 
-        <a href="{{ route('trips.create') }}" class="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-brand-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-lime-400/40">
+        <a href="{{ route('trips.create') }}" class="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-brand-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-sky-400/40">
             + Tambah perjalanan
         </a>
     </section>

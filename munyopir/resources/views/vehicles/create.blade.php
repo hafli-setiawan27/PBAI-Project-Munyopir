@@ -8,7 +8,7 @@
         <div class="mt-5 rounded-3xl border border-brand-100 bg-white p-6 shadow-xl shadow-brand-900/5 sm:p-9">
             <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent-700">Langkah 1 dari 1</p>
             <h1 class="mt-3 text-3xl font-bold tracking-tight text-brand-950">Kenali kendaraan Anda</h1>
-            <p class="mt-2 text-sm leading-6 text-slate-600">Simpan data kendaraan agar jadwal servis dan dokumen dapat dikelola di tahap berikutnya.</p>
+            <p class="mt-2 text-sm leading-6 text-brand-800/80">Simpan data kendaraan agar jadwal servis dan dokumen dapat dikelola di tahap berikutnya.</p>
 
             @include('vehicles.partials.form', [
                 'action' => route('vehicles.store'),

@@ -19,17 +19,40 @@
     --color-brand-900: #0e1a3a;
     --color-brand-950: #08122b;
 
-    --color-lime-50: #f7fce7;
-    --color-lime-100: #eff9cc;
-    --color-lime-200: #dff39a;
-    --color-lime-300: #d2f06d;
-    --color-lime-400: #c8f53c;
-    --color-lime-500: #b5e52f;
-
     --color-accent-50: #f2efff;
     --color-accent-100: #e6e0ff;
+    --color-accent-200: #cdc3ff;
+    --color-accent-300: #aea0ff;
+    --color-accent-400: #8f7cff;
+    --color-accent-500: #7058ff;
     --color-accent-600: #5b3df5;
     --color-accent-700: #4a2fd4;
+    --color-accent-800: #3923ab;
+    --color-accent-900: #281a7f;
 
-    --color-canvas: #f5f6fa;
+    --color-sky-50: #f1f6ff;
+    --color-sky-100: #dfebff;
+    --color-sky-200: #bfd5ff;
+    --color-sky-300: #98b9ff;
+    --color-sky-400: #7398fa;
+    --color-sky-500: #527bf0;
+    --color-sky-600: #3e65d6;
+    --color-sky-700: #324fa8;
+    --color-sky-800: #253b7d;
+
+    --color-canvas: #f5f8ff;
+
+    /* Keep Laravel's built-in pagination utilities within the brand palette. */
+    --color-gray-100: var(--color-brand-50);
+    --color-gray-200: var(--color-brand-100);
+    --color-gray-300: var(--color-brand-200);
+    --color-gray-400: var(--color-brand-400);
+    --color-gray-500: var(--color-brand-500);
+    --color-gray-600: var(--color-brand-600);
+    --color-gray-700: var(--color-brand-700);
+    --color-gray-800: var(--color-brand-800);
+    --color-gray-900: var(--color-brand-900);
+    --color-blue-300: var(--color-sky-300);
+    --color-blue-700: var(--color-sky-700);
+    --color-blue-800: var(--color-sky-800);
 }

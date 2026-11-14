@@ -22,10 +22,10 @@ enum TripStatus: string
     public function badgeClasses(): string
     {
         return match ($this) {
-            self::Scheduled => 'bg-sky-50 text-sky-800 ring-sky-700/10',
-            self::Changed => 'bg-amber-50 text-amber-800 ring-amber-700/10',
-            self::Completed => 'bg-emerald-50 text-emerald-800 ring-emerald-700/10',
-            self::Cancelled => 'bg-slate-100 text-slate-600 ring-slate-500/10',
+            self::Scheduled => 'bg-brand-50 text-brand-800 ring-brand-700/10',
+            self::Changed => 'bg-sky-50 text-brand-900 ring-sky-700/10',
+            self::Completed => 'bg-accent-50 text-accent-700 ring-accent-600/10',
+            self::Cancelled => 'bg-brand-100 text-brand-700 ring-brand-700/10',
         };
     }
 }

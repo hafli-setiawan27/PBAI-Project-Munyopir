@@ -8,9 +8,9 @@
             <a href="{{ route('dashboard') }}" class="text-sm font-semibold text-accent-700 hover:underline">← Kembali ke beranda</a>
             <p class="mt-5 text-sm font-semibold uppercase tracking-[0.14em] text-accent-700">Manajemen perjalanan</p>
             <h1 class="mt-2 text-3xl font-bold tracking-tight text-brand-950">Jadwal perjalanan</h1>
-            <p class="mt-2 text-sm leading-6 text-slate-600">Catat rencana penjemputan dan perbarui status saat jadwal berubah.</p>
+            <p class="mt-2 text-sm leading-6 text-brand-800/80">Catat rencana penjemputan dan perbarui status saat jadwal berubah.</p>
         </div>
-        <a href="{{ route('trips.create') }}" class="inline-flex min-h-11 items-center justify-center rounded-xl bg-brand-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-lime-400/40">
+        <a href="{{ route('trips.create') }}" class="inline-flex min-h-11 items-center justify-center rounded-xl bg-brand-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-sky-400/40">
             + Tambah perjalanan
         </a>
     </section>
@@ -26,7 +26,7 @@
                                 {{ $trip->status->label() }}
                             </span>
                         </div>
-                        <p class="mt-2 text-sm text-slate-600">Jemput di <span class="font-semibold text-slate-800">{{ $trip->pickup_location }}</span></p>
+                        <p class="mt-2 text-sm text-brand-800/80">Jemput di <span class="font-semibold text-brand-900">{{ $trip->pickup_location }}</span></p>
                         <p class="mt-3 text-sm font-semibold text-brand-700">{{ $trip->pickup_at->format('d/m/Y, H:i') }} WIB</p>
                     </div>
 
@@ -37,7 +37,7 @@
                         <form method="POST" action="{{ route('trips.destroy', $trip) }}" onsubmit="return confirm('Hapus jadwal perjalanan ini?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="rounded-lg border border-red-200 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-50">
+                            <button type="submit" class="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-sm font-semibold text-brand-900 hover:bg-sky-100">
                                 Hapus
                             </button>
                         </form>
@@ -47,8 +47,8 @@
         @empty
             <div class="rounded-2xl border border-dashed border-brand-200 bg-white px-6 py-12 text-center">
                 <h2 class="text-lg font-bold text-brand-950">Belum ada jadwal perjalanan</h2>
-                <p class="mt-2 text-sm text-slate-600">Tambahkan perjalanan pertama agar rencana penjemputan tersimpan.</p>
-                <a href="{{ route('trips.create') }}" class="mt-5 inline-flex min-h-11 items-center justify-center rounded-xl bg-brand-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-lime-400/40">
+                <p class="mt-2 text-sm text-brand-800/80">Tambahkan perjalanan pertama agar rencana penjemputan tersimpan.</p>
+                <a href="{{ route('trips.create') }}" class="mt-5 inline-flex min-h-11 items-center justify-center rounded-xl bg-brand-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-sky-400/40">
                     Tambah perjalanan
                 </a>
             </div>

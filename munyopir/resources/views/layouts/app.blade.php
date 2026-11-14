@@ -14,7 +14,7 @@
                 <img src="{{ asset('logo-munyopir.svg') }}" alt="Logo Munyopir" class="size-10 shrink-0 rounded-xl">
                 <span>
                     <span class="block text-lg font-bold tracking-tight text-brand-950">mun<span class="text-accent-600">yopir</span></span>
-                    <span class="block text-xs text-slate-500">Asisten digital sopir pribadi</span>
+                    <span class="block text-xs text-brand-700/70">Asisten digital sopir pribadi</span>
                 </span>
             </a>
 
@@ -37,7 +37,7 @@
 
     <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         @if (session('status'))
-            <div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900" role="status">
+            <div class="mb-6 rounded-xl border border-accent-200 bg-accent-50 px-4 py-3 text-sm font-medium text-accent-900" role="status">
                 {{ session('status') }}
             </div>
         @endif
