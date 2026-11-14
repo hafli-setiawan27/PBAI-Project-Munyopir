@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Logo Munyopir: roda kemudi dengan jarum jam">
+    <circle cx="60" cy="60" r="44" fill="none" stroke="#0E1A3A" stroke-width="12"/>
+    <path d="M22 60H98M60 60V98" fill="none" stroke="#0E1A3A" stroke-width="10" stroke-linecap="round"/>
+    <path d="M60 60L76 32" fill="none" stroke="#5B3DF5" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="60" cy="60" r="11" fill="#5B3DF5"/>
+</svg>

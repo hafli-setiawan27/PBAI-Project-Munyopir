@@ -15,6 +15,8 @@ class ExampleTest extends TestCase
             ->assertViewIs('landing')
             ->assertSee('Kerja lebih tertata')
             ->assertSee('Mulai gunakan Munyopir')
+            ->assertSee(asset('logo-munyopir.svg'))
+            ->assertSee('Logo Munyopir')
             ->assertSee(route('login'))
             ->assertSee(route('register'));
     }
