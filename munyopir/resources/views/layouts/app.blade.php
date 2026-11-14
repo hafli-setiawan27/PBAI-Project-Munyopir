@@ -48,12 +48,12 @@
                     </button>
                 </form>
             @else
-                <nav class="flex items-center gap-2 sm:gap-4" aria-label="Navigasi utama">
+                <nav class="flex w-full items-center justify-center gap-2 sm:w-auto sm:gap-4" aria-label="Navigasi utama">
                     @if (request()->routeIs('home'))
-                        <a href="#tentang" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-50">Tentang</a>
+                        <a href="#tentang" class="inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-50">Tentang</a>
                     @endif
-                    <a href="{{ route('login') }}" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-800 hover:bg-brand-50">Masuk</a>
-                    <a href="{{ route('register') }}" class="rounded-lg bg-brand-900 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">Daftar</a>
+                    <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-800 hover:bg-brand-50">Masuk</a>
+                    <a href="{{ route('register') }}" class="inline-flex min-h-11 items-center rounded-xl bg-brand-900 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">Daftar</a>
                 </nav>
             @endauth
         </div>
