@@ -18,6 +18,7 @@ class ExampleTest extends TestCase
             ->assertSeeText('Tentang developer')
             ->assertSeeText('Hafli Setiawan')
             ->assertSeeText('Mahasiswa / Pengembang Munyopir')
+            ->assertSee('aria-label="Ilustrasi komputer developer"', false)
             ->assertSee('href="https://github.com/hafli-setiawan27"', false)
             ->assertSee('href="https://www.linkedin.com/in/hafli-setiawan"', false)
             ->assertSee('target="_blank" rel="noopener noreferrer"', false)

@@ -160,8 +160,16 @@
 
         <article class="mx-auto mt-8 grid max-w-4xl overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-sm md:grid-cols-[minmax(15rem,0.8fr)_minmax(0,1.2fr)]">
             <div class="flex flex-col items-center justify-center bg-sky-50 p-7 text-center sm:p-9">
-                <div class="grid size-24 place-items-center rounded-3xl bg-brand-900 text-3xl font-bold tracking-tight text-white shadow-lg shadow-brand-900/15" aria-hidden="true">
-                    HS
+                <div class="grid size-24 place-items-center rounded-3xl bg-brand-900 shadow-lg shadow-brand-900/15">
+                    <svg viewBox="0 0 64 64" class="size-14" role="img" aria-label="Ilustrasi komputer developer">
+                        <rect x="7" y="8" width="50" height="36" rx="5" fill="#F5F8FF" stroke="#BFD5FF" stroke-width="2"/>
+                        <path d="M9 15h46" stroke="#C6CDE2" stroke-width="2"/>
+                        <circle cx="13" cy="11.5" r="1.25" fill="#5B3DF5"/>
+                        <circle cx="17.5" cy="11.5" r="1.25" fill="#7398FA"/>
+                        <path d="m26 23-5 5 5 5m12-10 5 5-5 5m-5-3-2 6" fill="none" stroke="#0E1A3A" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+                        <path d="M32 44v7m-9 5h18m-22 0h26" fill="none" stroke="#F5F8FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+                        <path d="M27 51h10" stroke="#8F7CFF" stroke-linecap="round" stroke-width="2"/>
+                    </svg>
                 </div>
                 <h3 class="mt-5 text-2xl font-bold tracking-tight text-brand-950">Hafli Setiawan</h3>
                 <p class="mt-2 text-sm font-medium text-accent-700">Mahasiswa / Pengembang Munyopir</p>
