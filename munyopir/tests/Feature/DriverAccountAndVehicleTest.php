@@ -48,6 +48,7 @@ class DriverAccountAndVehicleTest extends TestCase
     public function test_guest_is_redirected_to_login_for_private_pages(): void
     {
         $this->get(route('dashboard'))->assertRedirect(route('login'));
+        $this->get(route('vehicles.show'))->assertRedirect(route('login'));
         $this->get(route('vehicles.create'))->assertRedirect(route('login'));
     }
 
@@ -102,7 +103,7 @@ class DriverAccountAndVehicleTest extends TestCase
             'name' => 'Toyota Avanza Veloz',
             'plate_number' => 'B 5678 XYZ',
             'current_odometer' => 54800,
-        ])->assertRedirect(route('dashboard'));
+        ])->assertRedirect(route('vehicles.show'));
 
         $this->assertDatabaseHas('vehicles', [
             'id' => $vehicle->id,
@@ -113,7 +114,7 @@ class DriverAccountAndVehicleTest extends TestCase
         ]);
     }
 
-    public function test_dashboard_displays_vehicle_details_and_edit_action(): void
+    public function test_dashboard_displays_vehicle_details_and_profile_link(): void
     {
         $user = User::factory()->create();
         $vehicle = Vehicle::factory()->for($user)->create([
@@ -129,12 +130,42 @@ class DriverAccountAndVehicleTest extends TestCase
             ->assertSeeText($vehicle->name)
             ->assertSeeText($vehicle->plate_number)
             ->assertSeeText('54.210')
-            ->assertSee('Ilustrasi kendaraan')
-            ->assertSeeText('Ubah kendaraan')
+            ->assertSee('Ilustrasi mobil minivan modern')
+            ->assertSeeText('Lihat profil')
+            ->assertSee(route('vehicles.show'));
+    }
+
+    public function test_vehicle_profile_shows_details_and_an_edit_action(): void
+    {
+        $user = User::factory()->create();
+        $vehicle = Vehicle::factory()->for($user)->create([
+            'name' => 'Toyota Avanza',
+            'plate_number' => 'B 1234 XYZ',
+            'current_odometer' => 54210,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('vehicles.show'))
+            ->assertOk()
+            ->assertSeeText('Profil kendaraan')
+            ->assertSeeText($vehicle->name)
+            ->assertSeeText($vehicle->plate_number)
+            ->assertSeeText('54.210')
+            ->assertSee('Ilustrasi mobil minivan modern')
+            ->assertSeeText('Ubah informasi kendaraan')
             ->assertSee(route('vehicles.edit'));
     }
 
-    public function test_vehicle_edit_screen_shows_a_visual_summary_of_the_vehicle(): void
+    public function test_vehicle_profile_redirects_to_creation_when_driver_has_no_vehicle(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('vehicles.show'))
+            ->assertRedirect(route('vehicles.create'));
+    }
+
+    public function test_vehicle_edit_screen_shows_the_update_form_without_profile_details(): void
     {
         $user = User::factory()->create();
         $vehicle = Vehicle::factory()->for($user)->create([
@@ -146,11 +177,11 @@ class DriverAccountAndVehicleTest extends TestCase
         $this->actingAs($user)
             ->get(route('vehicles.edit'))
             ->assertOk()
-            ->assertSeeText('Ringkasan kendaraan')
-            ->assertSee('Ilustrasi kendaraan')
-            ->assertSeeText($vehicle->name)
-            ->assertSeeText($vehicle->plate_number)
-            ->assertSeeText('54.210');
+            ->assertSeeText('Ubah informasi kendaraan')
+            ->assertSee('value="Toyota Avanza"', false)
+            ->assertSee('value="B 1234 XYZ"', false)
+            ->assertSeeText('Simpan perubahan')
+            ->assertDontSeeText('Ringkasan kendaraan');
     }
 
     public function test_each_driver_can_only_have_one_vehicle_and_updates_their_own(): void
@@ -166,13 +197,13 @@ class DriverAccountAndVehicleTest extends TestCase
                 'plate_number' => 'B 9999 ABC',
                 'current_odometer' => 1000,
             ])
-            ->assertRedirect(route('vehicles.edit'));
+            ->assertRedirect(route('vehicles.show'));
 
         $this->put(route('vehicles.update'), [
             'name' => 'Mobil Saya',
             'plate_number' => $vehicle->plate_number,
             'current_odometer' => 30000,
-        ])->assertRedirect(route('dashboard'));
+        ])->assertRedirect(route('vehicles.show'));
 
         $this->assertDatabaseCount('vehicles', 2);
         $this->assertDatabaseHas('vehicles', [

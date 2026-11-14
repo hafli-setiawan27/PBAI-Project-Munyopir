@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/trips/{trip}', [TripController::class, 'update'])->name('trips.update');
     Route::delete('/trips/{trip}', [TripController::class, 'destroy'])->name('trips.destroy');
 
+    Route::get('/vehicle', [VehicleController::class, 'show'])->name('vehicles.show');
     Route::get('/vehicle/create', [VehicleController::class, 'create'])->name('vehicles.create');
     Route::post('/vehicle', [VehicleController::class, 'store'])->name('vehicles.store');
     Route::get('/vehicle/edit', [VehicleController::class, 'edit'])->name('vehicles.edit');

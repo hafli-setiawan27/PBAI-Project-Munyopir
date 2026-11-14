@@ -15,11 +15,12 @@
                 <p class="text-sm font-semibold uppercase tracking-[0.14em] text-accent-700">Kendaraan Anda</p>
                 <h2 class="mt-2 text-2xl font-bold tracking-tight text-brand-950">Informasi kendaraan</h2>
             </div>
-            <a href="{{ route('vehicles.edit') }}" class="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-sm font-semibold text-brand-800 transition hover:border-accent-600 hover:text-accent-700">
+            <a href="{{ route('vehicles.show') }}" class="inline-flex min-h-11 items-center gap-2 rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-sm font-semibold text-brand-800 transition hover:border-accent-600 hover:text-accent-700">
                 <svg viewBox="0 0 24 24" fill="none" class="size-4" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                    <path d="m14 5 5 5M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/>
+                    <circle cx="12" cy="12" r="2.5"/>
                 </svg>
-                Ubah kendaraan
+                Lihat profil
             </a>
         </div>
 
@@ -53,7 +54,7 @@
                     {{ number_format($vehicle->current_odometer, 0, ',', '.') }}
                     <span class="text-base font-semibold text-brand-700/70">km</span>
                 </p>
-                <p class="mt-3 text-sm leading-6 text-brand-800/80">Perbarui angka kilometer melalui tombol ubah kendaraan.</p>
+                <p class="mt-3 text-sm leading-6 text-brand-800/80">Perbarui angka kilometer melalui profil kendaraan.</p>
             </article>
         </div>
     </section>

@@ -22,7 +22,11 @@
                 @auth
                     <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-brand-800 hover:bg-brand-50">Beranda</a>
                     <a href="{{ route('trips.index') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-brand-800 hover:bg-brand-50">Perjalanan</a>
-                    <a href="{{ route('vehicles.edit') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-brand-800 hover:bg-brand-50">Kendaraan</a>
+                    <a href="{{ route('vehicles.show') }}" @class([
+                        'rounded-lg px-3 py-2 text-sm font-medium transition',
+                        'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
+                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('vehicles.*'),
+                    ])>Kendaraan</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">Keluar</button>

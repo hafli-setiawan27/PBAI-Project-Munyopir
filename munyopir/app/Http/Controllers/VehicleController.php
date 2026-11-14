@@ -8,10 +8,21 @@ use Illuminate\View\View;
 
 class VehicleController extends Controller
 {
+    public function show(Request $request): View|RedirectResponse
+    {
+        $vehicle = $request->user()->vehicle()->first();
+
+        if ($vehicle === null) {
+            return redirect()->route('vehicles.create');
+        }
+
+        return view('vehicles.show', ['vehicle' => $vehicle]);
+    }
+
     public function create(Request $request): View|RedirectResponse
     {
         if ($request->user()->vehicle()->exists()) {
-            return redirect()->route('vehicles.edit');
+            return redirect()->route('vehicles.show');
         }
 
         return view('vehicles.create');
@@ -21,7 +32,7 @@ class VehicleController extends Controller
     {
         if ($request->user()->vehicle()->exists()) {
             return redirect()
-                ->route('vehicles.edit')
+                ->route('vehicles.show')
                 ->with('status', 'Akun ini sudah memiliki kendaraan. Data kendaraan yang ada dapat diperbarui.');
         }
 
@@ -68,7 +79,7 @@ class VehicleController extends Controller
         ]));
 
         return redirect()
-            ->route('dashboard')
+            ->route('vehicles.show')
             ->with('status', 'Profil kendaraan berhasil diperbarui.');
     }
 
