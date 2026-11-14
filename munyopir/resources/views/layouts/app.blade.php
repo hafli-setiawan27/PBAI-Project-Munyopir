@@ -18,28 +18,87 @@
                 </span>
             </a>
 
-            <nav class="flex items-center gap-2 sm:gap-4" aria-label="Navigasi utama">
-                @auth
-                    <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-brand-800 hover:bg-brand-50">Beranda</a>
-                    <a href="{{ route('trips.index') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-brand-800 hover:bg-brand-50">Perjalanan</a>
+            @auth
+                <nav class="hidden items-center gap-2 sm:gap-4 lg:flex" aria-label="Navigasi utama">
+                    <a href="{{ route('dashboard') }}" @class([
+                        'rounded-lg px-3 py-2 text-sm font-medium transition',
+                        'bg-brand-50 text-brand-950' => request()->routeIs('dashboard'),
+                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('dashboard'),
+                    ]) @if (request()->routeIs('dashboard')) aria-current="page" @endif>Beranda</a>
+                    <a href="{{ route('trips.index') }}" @class([
+                        'rounded-lg px-3 py-2 text-sm font-medium transition',
+                        'bg-brand-50 text-brand-950' => request()->routeIs('trips.*'),
+                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('trips.*'),
+                    ]) @if (request()->routeIs('trips.*')) aria-current="page" @endif>Perjalanan</a>
                     <a href="{{ route('vehicles.show') }}" @class([
                         'rounded-lg px-3 py-2 text-sm font-medium transition',
                         'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
                         'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('vehicles.*'),
-                    ])>Kendaraan</a>
+                    ]) @if (request()->routeIs('vehicles.*')) aria-current="page" @endif>Kendaraan</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">Keluar</button>
                     </form>
-                @else
+                </nav>
+
+                <form method="POST" action="{{ route('logout') }}" class="lg:hidden">
+                    @csrf
+                    <button type="submit" class="inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">
+                        Keluar
+                    </button>
+                </form>
+            @else
+                <nav class="flex items-center gap-2 sm:gap-4" aria-label="Navigasi utama">
                     <a href="{{ route('login') }}" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-800 hover:bg-brand-50">Masuk</a>
                     <a href="{{ route('register') }}" class="rounded-lg bg-brand-900 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">Daftar</a>
-                @endauth
-            </nav>
+                </nav>
+            @endauth
         </div>
     </header>
 
-    <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+    @auth
+        <nav class="fixed inset-x-0 bottom-0 z-50 border-t border-brand-100 bg-white/95 px-2 pt-2 pb-2 shadow-lg shadow-brand-900/5 backdrop-blur-md lg:hidden" aria-label="Navigasi bawah">
+            <div class="mx-auto flex max-w-lg items-center justify-around gap-1">
+                <a href="{{ route('dashboard') }}" @class([
+                    'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 text-xs font-semibold transition',
+                    'bg-brand-50 text-brand-950' => request()->routeIs('dashboard'),
+                    'text-brand-700 hover:bg-brand-50' => ! request()->routeIs('dashboard'),
+                ]) @if (request()->routeIs('dashboard')) aria-current="page" @endif>
+                    <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Beranda</span>
+                </a>
+                <a href="{{ route('trips.index') }}" @class([
+                    'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 text-xs font-semibold transition',
+                    'bg-brand-50 text-brand-950' => request()->routeIs('trips.*'),
+                    'text-brand-700 hover:bg-brand-50' => ! request()->routeIs('trips.*'),
+                ]) @if (request()->routeIs('trips.*')) aria-current="page" @endif>
+                    <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="M4 19V5m0 14h16M8 15l3-4 3 2 4-6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="8" cy="15" r="1"/>
+                        <circle cx="11" cy="11" r="1"/>
+                        <circle cx="14" cy="13" r="1"/>
+                        <circle cx="18" cy="7" r="1"/>
+                    </svg>
+                    <span>Perjalanan</span>
+                </a>
+                <a href="{{ route('vehicles.show') }}" @class([
+                    'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 text-xs font-semibold transition',
+                    'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
+                    'text-brand-700 hover:bg-brand-50' => ! request()->routeIs('vehicles.*'),
+                ]) @if (request()->routeIs('vehicles.*')) aria-current="page" @endif>
+                    <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="m3 13 1.5-5A2 2 0 0 1 6.4 6.5h11.2A2 2 0 0 1 19.5 8l1.5 5v5h-3v-2H6v2H3v-5Z" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 13h16M7 10h.01M17 10h.01" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Kendaraan</span>
+                </a>
+            </div>
+        </nav>
+    @endauth
+
+    <main class="mx-auto w-full max-w-6xl px-4 pt-8 sm:px-6 sm:pt-10 {{ auth()->check() ? 'pb-28 lg:pb-10' : 'pb-8 sm:pb-10' }}">
         @if (session('status'))
             <div class="mb-6 rounded-xl border border-accent-200 bg-accent-50 px-4 py-3 text-sm font-medium text-accent-900" role="status">
                 {{ session('status') }}
