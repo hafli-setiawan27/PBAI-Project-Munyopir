@@ -134,6 +134,25 @@ class DriverAccountAndVehicleTest extends TestCase
             ->assertSee(route('vehicles.edit'));
     }
 
+    public function test_vehicle_edit_screen_shows_a_visual_summary_of_the_vehicle(): void
+    {
+        $user = User::factory()->create();
+        $vehicle = Vehicle::factory()->for($user)->create([
+            'name' => 'Toyota Avanza',
+            'plate_number' => 'B 1234 XYZ',
+            'current_odometer' => 54210,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('vehicles.edit'))
+            ->assertOk()
+            ->assertSeeText('Ringkasan kendaraan')
+            ->assertSee('Ilustrasi kendaraan')
+            ->assertSeeText($vehicle->name)
+            ->assertSeeText($vehicle->plate_number)
+            ->assertSeeText('54.210');
+    }
+
     public function test_each_driver_can_only_have_one_vehicle_and_updates_their_own(): void
     {
         $driver = User::factory()->create();
