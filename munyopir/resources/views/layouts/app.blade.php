@@ -21,6 +21,7 @@
             <nav class="flex items-center gap-2 sm:gap-4" aria-label="Navigasi utama">
                 @auth
                     <a href="{{ route('dashboard') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100">Beranda</a>
+                    <a href="{{ route('trips.index') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100">Perjalanan</a>
                     <a href="{{ route('vehicles.edit') }}" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100">Kendaraan</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

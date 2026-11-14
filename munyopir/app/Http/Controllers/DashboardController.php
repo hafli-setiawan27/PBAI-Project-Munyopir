@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TripStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -19,6 +20,12 @@ class DashboardController extends Controller
         return view('dashboard', [
             'user' => $request->user(),
             'vehicle' => $vehicle,
+            'upcomingTrips' => $request->user()->trips()
+                ->where('pickup_at', '>=', now())
+                ->whereIn('status', [TripStatus::Scheduled->value, TripStatus::Changed->value])
+                ->orderBy('pickup_at')
+                ->limit(5)
+                ->get(),
         ]);
     }
 }

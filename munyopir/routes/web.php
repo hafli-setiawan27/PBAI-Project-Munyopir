@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TripController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
+    Route::get('/trips/create', [TripController::class, 'create'])->name('trips.create');
+    Route::post('/trips', [TripController::class, 'store'])->name('trips.store');
+    Route::get('/trips/{trip}/edit', [TripController::class, 'edit'])->name('trips.edit');
+    Route::put('/trips/{trip}', [TripController::class, 'update'])->name('trips.update');
+    Route::delete('/trips/{trip}', [TripController::class, 'destroy'])->name('trips.destroy');
 
     Route::get('/vehicle/create', [VehicleController::class, 'create'])->name('vehicles.create');
     Route::post('/vehicle', [VehicleController::class, 'store'])->name('vehicles.store');
