@@ -30,6 +30,11 @@
                         'bg-brand-50 text-brand-950' => request()->routeIs('trips.*'),
                         'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('trips.*'),
                     ]) @if (request()->routeIs('trips.*')) aria-current="page" @endif>Perjalanan</a>
+                    <a href="{{ route('expenses.index') }}" @class([
+                        'rounded-lg px-3 py-2 text-sm font-medium transition',
+                        'bg-brand-50 text-brand-950' => request()->routeIs('expenses.*'),
+                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('expenses.*'),
+                    ]) @if (request()->routeIs('expenses.*')) aria-current="page" @endif>Pengeluaran</a>
                     <a href="{{ route('vehicles.show') }}" @class([
                         'rounded-lg px-3 py-2 text-sm font-medium transition',
                         'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
@@ -85,6 +90,16 @@
                         <circle cx="18" cy="7" r="1"/>
                     </svg>
                     <span>Perjalanan</span>
+                </a>
+                <a href="{{ route('expenses.index') }}" @class([
+                    'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-1 text-[11px] font-semibold transition',
+                    'bg-brand-50 text-brand-950' => request()->routeIs('expenses.*'),
+                    'text-brand-700 hover:bg-brand-50' => ! request()->routeIs('expenses.*'),
+                ]) @if (request()->routeIs('expenses.*')) aria-current="page" @endif>
+                    <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Pengeluaran</span>
                 </a>
                 <a href="{{ route('vehicles.show') }}" @class([
                     'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 text-xs font-semibold transition',
