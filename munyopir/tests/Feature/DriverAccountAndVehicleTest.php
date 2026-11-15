@@ -50,6 +50,48 @@ class DriverAccountAndVehicleTest extends TestCase
         $this->get(route('dashboard'))->assertRedirect(route('login'));
         $this->get(route('vehicles.show'))->assertRedirect(route('login'));
         $this->get(route('vehicles.create'))->assertRedirect(route('login'));
+        $this->get(route('settings'))->assertRedirect(route('login'));
+        $this->get(route('about-developer'))->assertRedirect(route('login'));
+    }
+
+    public function test_settings_page_shows_logout_with_confirmation(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('settings'));
+
+        $response->assertOk()
+            ->assertSeeText('Pengaturan')
+            ->assertSeeText($user->name)
+            ->assertSee('aria-label="Menu lainnya"', false)
+            ->assertSee('href="'.route('settings').'"', false)
+            ->assertSee('action="'.route('logout').'"', false)
+            ->assertSee('onsubmit="return confirm(\'Apakah kamu yakin ingin keluar ?\')"', false);
+    }
+
+    public function test_developer_information_is_available_from_overflow_menu(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('about-developer'));
+
+        $response->assertOk()
+            ->assertSeeText('Tentang Munyopir')
+            ->assertSeeText('Contoh tampilan demo Munyopir')
+            ->assertSeeText('Hafli Setiawan')
+            ->assertSeeText('Mahasiswa / Pengembang Munyopir')
+            ->assertSee('href="'.route('about-developer').'"', false)
+            ->assertSee('href="https://github.com/hafli-setiawan27"', false);
+    }
+
+    public function test_landing_page_keeps_developer_information(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSeeText('Hafli Setiawan')
+            ->assertSeeText('Catatan pengeluaran')
+            ->assertDontSeeText('Arsip bukti pengeluaran')
+            ->assertSee('id="tentang"', false);
     }
 
     public function test_registration_rejects_invalid_email_and_unconfirmed_password(): void
@@ -123,16 +165,27 @@ class DriverAccountAndVehicleTest extends TestCase
             'current_odometer' => 54210,
         ]);
 
-        $this->actingAs($user)
-            ->get(route('dashboard'))
+        $response = $this->actingAs($user)->get(route('dashboard'));
+
+        $response
             ->assertOk()
             ->assertSeeText('Informasi kendaraan')
             ->assertSeeText($vehicle->name)
             ->assertSeeText($vehicle->plate_number)
             ->assertSeeText('54.210')
+            ->assertDontSeeText('Ruang kerja sopir pribadi')
+            ->assertDontSeeText('Halo,')
+            ->assertSeeText('Atur jadwal perjalanan')
+            ->assertSeeText('Catat biaya operasional')
+            ->assertSeeText('Pantau informasi kendaraan')
+            ->assertSeeText('Pantau perubahan jadwal')
+            ->assertSee('aria-label="Informasi fitur Munyopir"', false)
+            ->assertDontSee('data-carousel-next', false)
             ->assertSee('Ilustrasi mobil minivan modern')
             ->assertSeeText('Lihat profil')
             ->assertSee(route('vehicles.show'));
+
+        $this->assertSame(4, substr_count($response->getContent(), 'data-carousel-slide'));
     }
 
     public function test_vehicle_profile_shows_details_and_an_edit_action(): void

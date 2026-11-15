@@ -9,56 +9,73 @@
 </head>
 <body class="min-h-screen bg-canvas text-brand-950 antialiased">
     <header class="border-b border-brand-100 bg-white">
-        <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
-            <a href="{{ route('home') }}" class="flex items-center gap-3" aria-label="Munyopir, beranda">
-                <img src="{{ asset('logo-munyopir.svg') }}" alt="Logo Munyopir" class="size-10 shrink-0 rounded-xl">
+        <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-3 py-4 sm:gap-4 sm:px-6">
+            <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3" aria-label="Munyopir, beranda">
+                <img src="{{ asset('logo-munyopir.svg') }}" alt="Logo Munyopir" class="size-8 shrink-0 rounded-xl sm:size-10">
                 <span>
-                    <span class="block text-lg font-bold tracking-tight text-brand-950">mun<span class="text-accent-600">yopir</span></span>
-                    <span class="block text-xs text-brand-700/70">Asisten digital sopir pribadi</span>
+                    <span class="block text-base font-bold tracking-tight text-brand-950 sm:text-lg">mun<span class="text-accent-600">yopir</span></span>
+                    <span class="block text-[10px] leading-4 text-brand-700/70 sm:text-xs">Asisten digital sopir pribadi</span>
                 </span>
             </a>
 
             @auth
-                <nav class="hidden items-center gap-2 sm:gap-4 lg:flex" aria-label="Navigasi utama">
-                    <a href="{{ route('dashboard') }}" @class([
-                        'rounded-lg px-3 py-2 text-sm font-medium transition',
-                        'bg-brand-50 text-brand-950' => request()->routeIs('dashboard'),
-                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('dashboard'),
-                    ]) @if (request()->routeIs('dashboard')) aria-current="page" @endif>Beranda</a>
-                    <a href="{{ route('trips.index') }}" @class([
-                        'rounded-lg px-3 py-2 text-sm font-medium transition',
-                        'bg-brand-50 text-brand-950' => request()->routeIs('trips.*'),
-                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('trips.*'),
-                    ]) @if (request()->routeIs('trips.*')) aria-current="page" @endif>Perjalanan</a>
-                    <a href="{{ route('expenses.index') }}" @class([
-                        'rounded-lg px-3 py-2 text-sm font-medium transition',
-                        'bg-brand-50 text-brand-950' => request()->routeIs('expenses.*'),
-                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('expenses.*'),
-                    ]) @if (request()->routeIs('expenses.*')) aria-current="page" @endif>Pengeluaran</a>
-                    <a href="{{ route('vehicles.show') }}" @class([
-                        'rounded-lg px-3 py-2 text-sm font-medium transition',
-                        'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
-                        'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('vehicles.*'),
-                    ]) @if (request()->routeIs('vehicles.*')) aria-current="page" @endif>Kendaraan</a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="rounded-lg px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">Keluar</button>
-                    </form>
-                </nav>
+                <div class="flex items-center gap-2">
+                    <nav class="hidden items-center gap-2 sm:gap-4 lg:flex" aria-label="Navigasi utama">
+                        <a href="{{ route('dashboard') }}" @class([
+                            'rounded-lg px-3 py-2 text-sm font-medium transition',
+                            'bg-brand-50 text-brand-950' => request()->routeIs('dashboard'),
+                            'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('dashboard'),
+                        ]) @if (request()->routeIs('dashboard')) aria-current="page" @endif>Beranda</a>
+                        <a href="{{ route('trips.index') }}" @class([
+                            'rounded-lg px-3 py-2 text-sm font-medium transition',
+                            'bg-brand-50 text-brand-950' => request()->routeIs('trips.*'),
+                            'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('trips.*'),
+                        ]) @if (request()->routeIs('trips.*')) aria-current="page" @endif>Perjalanan</a>
+                        <a href="{{ route('expenses.index') }}" @class([
+                            'rounded-lg px-3 py-2 text-sm font-medium transition',
+                            'bg-brand-50 text-brand-950' => request()->routeIs('expenses.*'),
+                            'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('expenses.*'),
+                        ]) @if (request()->routeIs('expenses.*')) aria-current="page" @endif>Pengeluaran</a>
+                        <a href="{{ route('vehicles.show') }}" @class([
+                            'rounded-lg px-3 py-2 text-sm font-medium transition',
+                            'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
+                            'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('vehicles.*'),
+                        ]) @if (request()->routeIs('vehicles.*')) aria-current="page" @endif>Kendaraan</a>
+                    </nav>
 
-                <form method="POST" action="{{ route('logout') }}" class="lg:hidden">
-                    @csrf
-                    <button type="submit" class="inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">
-                        Keluar
-                    </button>
-                </form>
+                    <details class="group relative">
+                        <summary class="flex size-11 cursor-pointer list-none items-center justify-center rounded-xl text-brand-700 transition hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky-300/60 [&::-webkit-details-marker]:hidden" aria-label="Menu lainnya">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="size-5" aria-hidden="true">
+                                <circle cx="5" cy="12" r="1.8"/>
+                                <circle cx="12" cy="12" r="1.8"/>
+                                <circle cx="19" cy="12" r="1.8"/>
+                            </svg>
+                        </summary>
+                        <div class="absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-brand-100 bg-white p-2 shadow-xl shadow-brand-900/10">
+                            <a href="{{ route('settings') }}" @class([
+                                'flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold transition',
+                                'bg-brand-50 text-brand-950' => request()->routeIs('settings'),
+                                'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('settings'),
+                            ]) @if (request()->routeIs('settings')) aria-current="page" @endif>
+                                Pengaturan
+                            </a>
+                            <a href="{{ route('about-developer') }}" @class([
+                                'flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold transition',
+                                'bg-brand-50 text-brand-950' => request()->routeIs('about-developer'),
+                                'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('about-developer'),
+                            ]) @if (request()->routeIs('about-developer')) aria-current="page" @endif>
+                                Tentang
+                            </a>
+                        </div>
+                    </details>
+                </div>
             @else
-                <nav class="flex w-full items-center justify-center gap-2 sm:w-auto sm:gap-4" aria-label="Navigasi utama">
+                <nav class="flex shrink-0 items-center justify-end gap-1 sm:gap-4" aria-label="Navigasi utama">
                     @if (request()->routeIs('home'))
-                        <a href="#tentang" class="inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-50">Tentang</a>
+                        <a href="#tentang" class="hidden min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-50 sm:inline-flex">Tentang</a>
                     @endif
-                    <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold text-brand-800 hover:bg-brand-50">Masuk</a>
-                    <a href="{{ route('register') }}" class="inline-flex min-h-11 items-center rounded-xl bg-brand-900 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">Daftar</a>
+                    <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center rounded-xl px-2 py-2 text-sm font-semibold text-brand-800 hover:bg-brand-50 sm:px-3">Masuk</a>
+                    <a href="{{ route('register') }}" class="inline-flex min-h-11 items-center rounded-xl bg-brand-900 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-800 sm:px-4">Daftar</a>
                 </nav>
             @endauth
         </div>

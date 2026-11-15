@@ -29,6 +29,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::view('/settings', 'settings')->name('settings');
+    Route::view('/about-developer', 'about-developer')->name('about-developer');
 
     Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
     Route::get('/trips/create', [TripController::class, 'create'])->name('trips.create');
