@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Munyopir') · Munyopir</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('logo-munyopir.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-canvas text-brand-950 antialiased">
@@ -36,6 +37,11 @@
                             'bg-brand-50 text-brand-950' => request()->routeIs('expenses.*'),
                             'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('expenses.*'),
                         ]) @if (request()->routeIs('expenses.*')) aria-current="page" @endif>Pengeluaran</a>
+                        <a href="{{ route('maintenance.index') }}" @class([
+                            'rounded-lg px-3 py-2 text-sm font-medium transition',
+                            'bg-brand-50 text-brand-950' => request()->routeIs('maintenance.*'),
+                            'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('maintenance.*'),
+                        ]) @if (request()->routeIs('maintenance.*')) aria-current="page" @endif>Perawatan</a>
                         <a href="{{ route('vehicles.show') }}" @class([
                             'rounded-lg px-3 py-2 text-sm font-medium transition',
                             'bg-brand-50 text-brand-950' => request()->routeIs('vehicles.*'),
@@ -52,6 +58,16 @@
                             </svg>
                         </summary>
                         <div class="absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-brand-100 bg-white p-2 shadow-xl shadow-brand-900/10">
+                            <a href="{{ route('notifications.index') }}" @class([
+                                'flex min-h-11 items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition',
+                                'bg-brand-50 text-brand-950' => request()->routeIs('notifications.*'),
+                                'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('notifications.*'),
+                            ]) @if (request()->routeIs('notifications.*')) aria-current="page" @endif>
+                                Pengingat
+                                @if ($unreadNotificationCount > 0)
+                                    <span class="rounded-full bg-accent-100 px-2 py-0.5 text-xs text-accent-800">{{ $unreadNotificationCount }}</span>
+                                @endif
+                            </a>
                             <a href="{{ route('settings') }}" @class([
                                 'flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold transition',
                                 'bg-brand-50 text-brand-950' => request()->routeIs('settings'),
@@ -117,6 +133,16 @@
                         <path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span>Pengeluaran</span>
+                </a>
+                <a href="{{ route('maintenance.index') }}" @class([
+                    'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-1 text-[11px] font-semibold transition',
+                    'bg-brand-50 text-brand-950' => request()->routeIs('maintenance.*'),
+                    'text-brand-700 hover:bg-brand-50' => ! request()->routeIs('maintenance.*'),
+                ]) @if (request()->routeIs('maintenance.*')) aria-current="page" @endif>
+                    <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" stroke-linecap="round"/>
+                    </svg>
+                    <span>Perawatan</span>
                 </a>
                 <a href="{{ route('vehicles.show') }}" @class([
                     'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 text-xs font-semibold transition',

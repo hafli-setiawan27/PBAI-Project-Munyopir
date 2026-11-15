@@ -33,23 +33,6 @@
         @enderror
     </div>
 
-    @if ($trip)
-        <div>
-            <label for="status" class="mb-2 block text-sm font-semibold text-brand-800">Status perjalanan</label>
-            <select id="status" name="status" required
-                class="w-full rounded-xl border border-brand-200 bg-white px-4 py-3 text-base outline-none transition focus:border-accent-600 focus:ring-4 focus:ring-accent-600/10">
-                @foreach ($statuses as $status)
-                    <option value="{{ $status->value }}" @selected(old('status', $trip->status->value) === $status->value)>
-                        {{ $status->label() }}
-                    </option>
-                @endforeach
-            </select>
-            @error('status')
-                <p class="mt-2 text-sm text-accent-700" role="alert">{{ $message }}</p>
-            @enderror
-        </div>
-    @endif
-
     <button type="submit" class="w-full rounded-xl bg-brand-900 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-brand-800 focus:outline-none focus:ring-4 focus:ring-sky-400/40 sm:w-auto">
         {{ $submitLabel }}
     </button>

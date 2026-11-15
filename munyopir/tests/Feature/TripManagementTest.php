@@ -91,10 +91,10 @@ class TripManagementTest extends TestCase
         $this->get(route('trips.edit', $trip))
             ->assertOk()
             ->assertSee('Stasiun Gambir')
-            ->assertSee('Berubah');
+            ->assertDontSee('name="status"', false);
     }
 
-    public function test_driver_can_update_status_and_delete_a_trip(): void
+    public function test_driver_can_update_trip_details_and_delete_a_trip(): void
     {
         $driver = User::factory()->create();
         $trip = Trip::factory()->for($driver)->create();
@@ -104,10 +104,13 @@ class TripManagementTest extends TestCase
                 'destination' => 'Stasiun Gambir',
                 'pickup_location' => 'Rumah',
                 'pickup_at' => '2026-11-16T08:15',
-                'status' => TripStatus::Changed->value,
             ])
             ->assertRedirect(route('trips.index'))
             ->assertSessionHas('status', 'Jadwal perjalanan berhasil diperbarui.');
+
+        $this->patch(route('trips.status', $trip), ['status' => TripStatus::Changed->value])
+            ->assertRedirect(route('trips.index'))
+            ->assertSessionHas('status', 'Status perjalanan berhasil diperbarui.');
 
         $this->assertDatabaseHas('trips', [
             'id' => $trip->id,
@@ -133,14 +136,13 @@ class TripManagementTest extends TestCase
 
         $this->actingAs($driver);
 
-        $this->get(route('trips.edit', $trip))->assertNotFound();
+        $this->get(route('trips.edit', $trip))->assertForbidden();
         $this->put(route('trips.update', $trip), [
             'destination' => 'Perubahan tidak sah',
             'pickup_location' => 'Perubahan tidak sah',
             'pickup_at' => '2026-11-16T08:15',
-            'status' => TripStatus::Completed->value,
-        ])->assertNotFound();
-        $this->delete(route('trips.destroy', $trip))->assertNotFound();
+        ])->assertForbidden();
+        $this->delete(route('trips.destroy', $trip))->assertForbidden();
 
         $this->assertDatabaseHas('trips', [
             'id' => $trip->id,
@@ -150,25 +152,32 @@ class TripManagementTest extends TestCase
         ]);
     }
 
-    public function test_trip_update_rejects_unknown_status(): void
+    public function test_trip_status_update_rejects_unknown_and_invalid_transitions(): void
     {
         $driver = User::factory()->create();
         $trip = Trip::factory()->for($driver)->create();
 
         $this->actingAs($driver)
-            ->from(route('trips.edit', $trip))
-            ->put(route('trips.update', $trip), [
-                'destination' => 'Bandara',
-                'pickup_location' => 'Rumah',
-                'pickup_at' => '2026-11-16T08:15',
-                'status' => 'unknown',
-            ])
-            ->assertRedirect(route('trips.edit', $trip))
+            ->from(route('trips.index'))
+            ->patch(route('trips.status', $trip), ['status' => 'unknown'])
+            ->assertRedirect(route('trips.index'))
+            ->assertSessionHasErrors('status');
+
+        $this->from(route('trips.index'))
+            ->patch(route('trips.status', $trip), ['status' => TripStatus::Completed->value])
+            ->assertRedirect(route('trips.index'))
+            ->assertSessionHasErrors('status', 'Perubahan status perjalanan tidak diizinkan.');
+
+        $this->patch(route('trips.status', $trip), ['status' => TripStatus::Changed->value])->assertRedirect(route('trips.index'));
+        $this->patch(route('trips.status', $trip), ['status' => TripStatus::Completed->value])->assertRedirect(route('trips.index'));
+        $this->from(route('trips.index'))
+            ->patch(route('trips.status', $trip), ['status' => TripStatus::Cancelled->value])
+            ->assertRedirect(route('trips.index'))
             ->assertSessionHasErrors('status');
 
         $this->assertDatabaseHas('trips', [
             'id' => $trip->id,
-            'status' => TripStatus::Scheduled->value,
+            'status' => TripStatus::Completed->value,
         ]);
     }
 
@@ -227,5 +236,6 @@ class TripManagementTest extends TestCase
     {
         $this->get(route('trips.index'))->assertRedirect(route('login'));
         $this->get(route('trips.create'))->assertRedirect(route('login'));
+        $this->patch(route('trips.status', Trip::factory()->create()))->assertRedirect(route('login'));
     }
 }

@@ -154,6 +154,17 @@ class DriverAccountAndVehicleTest extends TestCase
             'plate_number' => 'B 5678 XYZ',
             'current_odometer' => 54800,
         ]);
+
+        $this->from(route('vehicles.edit'))
+            ->put(route('vehicles.update'), [
+                'name' => 'Toyota Avanza Veloz',
+                'plate_number' => 'B 5678 XYZ',
+                'current_odometer' => 54799,
+            ])
+            ->assertRedirect(route('vehicles.edit'))
+            ->assertSessionHasErrors('current_odometer');
+
+        $this->assertSame(54800, $vehicle->refresh()->current_odometer);
     }
 
     public function test_dashboard_displays_vehicle_details_and_profile_link(): void
@@ -241,7 +252,7 @@ class DriverAccountAndVehicleTest extends TestCase
     {
         $driver = User::factory()->create();
         $otherDriver = User::factory()->create();
-        $vehicle = Vehicle::factory()->for($driver)->create();
+        $vehicle = Vehicle::factory()->for($driver)->create(['current_odometer' => 20000]);
         $otherVehicle = Vehicle::factory()->for($otherDriver)->create();
 
         $this->actingAs($driver)

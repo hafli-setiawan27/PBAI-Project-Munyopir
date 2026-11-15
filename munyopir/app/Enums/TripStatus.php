@@ -19,6 +19,21 @@ enum TripStatus: string
         };
     }
 
+    /** @return array<int, self> */
+    public function nextStatuses(): array
+    {
+        return match ($this) {
+            self::Scheduled => [self::Changed],
+            self::Changed => [self::Completed, self::Cancelled],
+            self::Completed, self::Cancelled => [],
+        };
+    }
+
+    public function canTransitionTo(self $status): bool
+    {
+        return in_array($status, $this->nextStatuses(), true);
+    }
+
     public function badgeClasses(): string
     {
         return match ($this) {

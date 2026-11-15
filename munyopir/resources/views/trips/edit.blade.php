@@ -14,7 +14,6 @@
                 'action' => route('trips.update', $trip),
                 'method' => 'PUT',
                 'trip' => $trip,
-                'statuses' => $statuses,
                 'submitLabel' => 'Simpan perubahan',
             ])
         </div>

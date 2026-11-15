@@ -31,6 +31,16 @@
                     </div>
 
                     <div class="flex shrink-0 items-center gap-2">
+                        @foreach ($trip->status->nextStatuses() as $nextStatus)
+                            <form method="POST" action="{{ route('trips.status', $trip) }}">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status" value="{{ $nextStatus->value }}">
+                                <button type="submit" class="min-h-11 rounded-lg border border-accent-200 bg-accent-50 px-3 py-2 text-sm font-semibold text-accent-800 transition hover:bg-accent-100">
+                                    {{ match ($nextStatus) { \App\Enums\TripStatus::Changed => 'Tandai berubah', \App\Enums\TripStatus::Completed => 'Tandai selesai', \App\Enums\TripStatus::Cancelled => 'Batalkan', default => $nextStatus->label() } }}
+                                </button>
+                            </form>
+                        @endforeach
                         <a href="{{ route('trips.edit', $trip) }}" class="rounded-lg border border-brand-200 px-3 py-2 text-sm font-semibold text-brand-800 transition hover:border-accent-600 hover:text-accent-700">
                             Ubah
                         </a>

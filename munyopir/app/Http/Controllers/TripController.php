@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TripStatus;
+use App\Http\Requests\StoreTripRequest;
+use App\Http\Requests\UpdateTripRequest;
+use App\Http\Requests\UpdateTripStatusRequest;
 use App\Models\Trip;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class TripController extends Controller
 {
     public function index(Request $request): View
     {
+        Gate::authorize('viewAny', Trip::class);
+
         return view('trips.index', [
             'trips' => $request->user()->trips()->orderByDesc('pickup_at')->paginate(10),
         ]);
@@ -20,65 +25,54 @@ class TripController extends Controller
 
     public function create(): View
     {
+        Gate::authorize('create', Trip::class);
+
         return view('trips.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreTripRequest $request): RedirectResponse
     {
-        $request->user()->trips()->create($request->validate($this->tripRules()));
+        $request->user()->trips()->create($request->validated());
 
         return redirect()
             ->route('trips.index')
             ->with('status', 'Jadwal perjalanan berhasil ditambahkan.');
     }
 
-    public function edit(Request $request, Trip $trip): View
+    public function edit(Trip $trip): View
     {
+        Gate::authorize('view', $trip);
+
         return view('trips.edit', [
-            'trip' => $this->ownedTrip($request, $trip),
-            'statuses' => TripStatus::cases(),
+            'trip' => $trip,
         ]);
     }
 
-    public function update(Request $request, Trip $trip): RedirectResponse
+    public function update(UpdateTripRequest $request, Trip $trip): RedirectResponse
     {
-        $trip = $this->ownedTrip($request, $trip);
-        $trip->update($request->validate([
-            ...$this->tripRules(),
-            'status' => ['required', Rule::enum(TripStatus::class)],
-        ], [
-            'status.required' => 'Status perjalanan wajib dipilih.',
-            'status.enum' => 'Pilih status perjalanan yang tersedia.',
-        ]));
+        $trip->update($request->validated());
 
         return redirect()
             ->route('trips.index')
             ->with('status', 'Jadwal perjalanan berhasil diperbarui.');
     }
 
-    public function destroy(Request $request, Trip $trip): RedirectResponse
+    public function destroy(Trip $trip): RedirectResponse
     {
-        $this->ownedTrip($request, $trip)->delete();
+        Gate::authorize('delete', $trip);
+        $trip->delete();
 
         return redirect()
             ->route('trips.index')
             ->with('status', 'Jadwal perjalanan berhasil dihapus.');
     }
 
-    private function ownedTrip(Request $request, Trip $trip): Trip
+    public function updateStatus(UpdateTripStatusRequest $request, Trip $trip): RedirectResponse
     {
-        return $request->user()->trips()->findOrFail($trip->getKey());
-    }
+        $trip->update(['status' => $request->enum('status', TripStatus::class)]);
 
-    /**
-     * @return array<string, array<int, string>>
-     */
-    private function tripRules(): array
-    {
-        return [
-            'destination' => ['required', 'string', 'max:150'],
-            'pickup_location' => ['required', 'string', 'max:150'],
-            'pickup_at' => ['required', 'date_format:Y-m-d\TH:i'],
-        ];
+        return redirect()
+            ->route('trips.index')
+            ->with('status', 'Status perjalanan berhasil diperbarui.');
     }
 }
