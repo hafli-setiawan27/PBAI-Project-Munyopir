@@ -1,3 +1,67 @@
+import { compressReceiptImage } from './image-compressor';
+
+document.querySelectorAll('[data-receipt-form]').forEach((form) => {
+    const receiptInput = form.querySelector('[data-receipt-input]');
+    const compressionStatus = form.querySelector('[data-receipt-compression-status]');
+    let compressionPromise = null;
+    let resubmittingAfterCompression = false;
+
+    if (!receiptInput || !compressionStatus) {
+        return;
+    }
+
+    receiptInput.addEventListener('change', () => {
+        const [selectedFile] = receiptInput.files ?? [];
+
+        if (!selectedFile) {
+            compressionStatus.classList.add('hidden');
+
+            return;
+        }
+
+        compressionStatus.classList.remove('hidden');
+        compressionStatus.textContent = 'Memeriksa ukuran foto nota…';
+
+        compressionPromise = compressReceiptImage(selectedFile)
+            .then((compressedFile) => {
+                if (compressedFile !== selectedFile) {
+                    const transfer = new DataTransfer();
+                    transfer.items.add(compressedFile);
+                    receiptInput.files = transfer.files;
+                    compressionStatus.textContent = 'Ukuran foto nota sudah diperkecil.';
+
+                    return;
+                }
+
+                compressionStatus.textContent = 'Foto nota siap diunggah.';
+            })
+            .catch(() => {
+                compressionStatus.textContent = 'Foto tidak dapat diproses. Pilih berkas JPG, PNG, atau WebP hingga 2 MB.';
+            })
+            .finally(() => {
+                compressionPromise = null;
+            });
+    });
+
+    form.addEventListener('submit', async (event) => {
+        if (compressionPromise === null) {
+            resubmittingAfterCompression = false;
+
+            return;
+        }
+
+        event.preventDefault();
+
+        if (resubmittingAfterCompression) {
+            return;
+        }
+
+        resubmittingAfterCompression = true;
+        await compressionPromise;
+        form.requestSubmit(event.submitter);
+    });
+});
+
 document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
     const viewport = carousel.querySelector('[data-carousel-viewport]');
     const track = carousel.querySelector('.feature-carousel-track');
@@ -36,10 +100,11 @@ document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
     const updateCarouselState = () => {
         indicators.forEach((indicator, indicatorIndex) => {
             const isActive = indicatorIndex === activeIndex % slideCount;
+            const indicatorDot = indicator.querySelector('span');
 
             indicator.setAttribute('aria-pressed', String(isActive));
-            indicator.classList.toggle('bg-brand-900', isActive);
-            indicator.classList.toggle('bg-brand-200', !isActive);
+            indicatorDot?.classList.toggle('bg-brand-900', isActive);
+            indicatorDot?.classList.toggle('bg-brand-200', !isActive);
         });
 
         slides.forEach((slide, slideIndex) => {

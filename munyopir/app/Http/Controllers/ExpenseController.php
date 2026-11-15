@@ -182,6 +182,40 @@ class ExpenseController extends Controller
         ]);
     }
 
+    public function receiptPreview(Request $request, Expense $expense): StreamedResponse
+    {
+        $expense = $this->ownedExpense($request, $expense);
+        Gate::authorize('view', $expense);
+
+        abort_if($expense->receipt_path === null, 404);
+
+        $disk = Storage::disk('local');
+        abort_unless($disk->exists($expense->receipt_path), 404);
+
+        $contentType = $disk->mimeType($expense->receipt_path) ?? 'application/octet-stream';
+        abort_unless(in_array($contentType, ['image/jpeg', 'image/png', 'image/webp'], true), 404);
+
+        $stream = $disk->readStream($expense->receipt_path);
+        if ($stream === false) {
+            throw new RuntimeException('Bukti pengeluaran gagal dibaca.');
+        }
+
+        return response()->stream(function () use ($stream): void {
+            try {
+                if (fpassthru($stream) === false) {
+                    throw new RuntimeException('Bukti pengeluaran gagal dikirim.');
+                }
+            } finally {
+                fclose($stream);
+            }
+        }, 200, [
+            'Cache-Control' => 'private, no-store',
+            'Content-Disposition' => 'inline; filename="'.basename($expense->receipt_path).'"',
+            'Content-Type' => $contentType,
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
     private function ownedExpense(Request $request, Expense $expense): Expense
     {
         return $request->user()->expenses()->findOrFail($expense->getKey());

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vehicle;
+use App\Http\Requests\StoreVehicleRequest;
+use App\Http\Requests\UpdateVehicleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,7 +30,7 @@ class VehicleController extends Controller
         return view('vehicles.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreVehicleRequest $request): RedirectResponse
     {
         if ($request->user()->vehicle()->exists()) {
             return redirect()
@@ -37,16 +38,7 @@ class VehicleController extends Controller
                 ->with('status', 'Akun ini sudah memiliki kendaraan. Data kendaraan yang ada dapat diperbarui.');
         }
 
-        $validated = $request->validate($this->vehicleRules(), [
-            'name.required' => 'Nama kendaraan wajib diisi.',
-            'plate_number.required' => 'Nomor polisi wajib diisi.',
-            'current_odometer.required' => 'Odometer wajib diisi.',
-            'current_odometer.integer' => 'Odometer harus berupa angka.',
-            'current_odometer.min' => 'Odometer tidak boleh kurang dari 0.',
-            'current_odometer.max' => 'Odometer terlalu besar.',
-        ]);
-
-        $request->user()->vehicle()->create($validated);
+        $request->user()->vehicle()->create($request->validated());
 
         return redirect()
             ->route('dashboard')
@@ -64,35 +56,16 @@ class VehicleController extends Controller
         return view('vehicles.edit', ['vehicle' => $vehicle]);
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(UpdateVehicleRequest $request): RedirectResponse
     {
         $vehicle = $request->user()->vehicle()->first();
 
         abort_if($vehicle === null, 404);
 
-        $vehicle->update($request->validate($this->vehicleRules($vehicle), [
-            'name.required' => 'Nama kendaraan wajib diisi.',
-            'plate_number.required' => 'Nomor polisi wajib diisi.',
-            'current_odometer.required' => 'Odometer wajib diisi.',
-            'current_odometer.integer' => 'Odometer harus berupa angka.',
-            'current_odometer.max' => 'Odometer terlalu besar.',
-            'current_odometer.min' => 'Odometer tidak boleh lebih rendah dari angka sebelumnya.',
-        ]));
+        $vehicle->update($request->validated());
 
         return redirect()
             ->route('vehicles.show')
             ->with('status', 'Profil kendaraan berhasil diperbarui.');
-    }
-
-    /**
-     * @return array<string, array<int, string>>
-     */
-    private function vehicleRules(?Vehicle $vehicle = null): array
-    {
-        return [
-            'name' => ['required', 'string', 'max:100'],
-            'plate_number' => ['required', 'string', 'max:20'],
-            'current_odometer' => ['required', 'integer', 'min:'.($vehicle?->current_odometer ?? 0), 'max:4294967295'],
-        ];
     }
 }

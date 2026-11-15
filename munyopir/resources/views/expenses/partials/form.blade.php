@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $action }}" enctype="multipart/form-data" class="mt-8 space-y-5">
+<form method="POST" action="{{ $action }}" enctype="multipart/form-data" class="mt-8 space-y-5" data-receipt-form>
     @csrf
     @if ($method !== 'POST')
         @method($method)
@@ -73,8 +73,9 @@
         @if ($expense?->receipt_path)
             <a href="{{ route('expenses.receipt', $expense) }}" class="mb-3 inline-flex min-h-11 items-center text-sm font-semibold text-accent-700 hover:underline">Lihat nota tersimpan</a>
         @endif
-        <input id="receipt" name="receipt" type="file" accept="image/jpeg,image/png,image/webp"
+        <input id="receipt" name="receipt" type="file" accept="image/jpeg,image/png,image/webp" data-receipt-input
             class="block w-full rounded-xl border border-brand-200 bg-white px-3 py-3 text-sm text-brand-800 file:mr-4 file:rounded-lg file:border-0 file:bg-brand-50 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-brand-900">
+        <p class="mt-2 hidden text-sm text-brand-700" data-receipt-compression-status aria-live="polite"></p>
         @error('receipt')
             <p class="mt-2 text-sm text-accent-700" role="alert">{{ $message }}</p>
         @enderror

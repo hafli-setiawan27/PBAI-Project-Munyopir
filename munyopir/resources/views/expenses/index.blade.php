@@ -22,24 +22,31 @@
     <section class="mt-7 space-y-4" aria-label="Daftar pengeluaran">
         @forelse ($expenses as $expense)
             <article class="rounded-2xl border border-brand-100 bg-white p-5 shadow-sm sm:p-6">
-                <div class="flex flex-wrap items-start justify-between gap-4">
-                    <a href="{{ route('expenses.show', $expense) }}" class="min-w-0 flex-1">
-                        <div class="flex flex-wrap items-center gap-3">
-                            <h2 class="text-lg font-bold text-brand-950">{{ $expense->category->label() }}</h2>
-                            <span class="rounded-full bg-brand-50 px-3 py-1 text-sm font-bold text-brand-900">Rp{{ number_format($expense->amount, 0, ',', '.') }}</span>
-                        </div>
-                        <p class="mt-2 text-sm text-brand-800/80">
-                            {{ $expense->expense_date->format('d/m/Y') }}
-                            @if ($expense->trip)
-                                <span aria-hidden="true">·</span> {{ $expense->trip->destination }}
-                            @endif
-                        </p>
-                        @if ($expense->description)
-                            <p class="mt-2 line-clamp-2 text-sm leading-6 text-brand-800">{{ $expense->description }}</p>
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <a href="{{ route('expenses.show', $expense) }}" class="flex min-w-0 items-start gap-3 sm:gap-4 lg:flex-1">
+                        @if ($expense->receipt_path)
+                            <span class="h-32 w-24 shrink-0 overflow-hidden rounded-xl border border-brand-100 bg-brand-50 sm:h-36 sm:w-28">
+                                <img src="{{ route('expenses.receipt.preview', $expense) }}" alt="Foto struk {{ $expense->category->label() }}" class="size-full object-contain" loading="lazy" decoding="async">
+                            </span>
                         @endif
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+                                <h2 class="text-lg font-bold text-brand-950">{{ $expense->category->label() }}</h2>
+                                <span class="rounded-full bg-brand-50 px-3 py-1 text-sm font-bold text-brand-900">Rp{{ number_format($expense->amount, 0, ',', '.') }}</span>
+                            </div>
+                            <p class="mt-2 text-sm text-brand-800/80">
+                                {{ $expense->expense_date->format('d/m/Y') }}
+                                @if ($expense->trip)
+                                    <span aria-hidden="true">·</span> {{ $expense->trip->destination }}
+                                @endif
+                            </p>
+                            @if ($expense->description)
+                                <p class="mt-2 line-clamp-2 text-sm leading-6 text-brand-800">{{ $expense->description }}</p>
+                            @endif
+                        </div>
                     </a>
 
-                    <div class="flex shrink-0 items-center gap-2">
+                    <div class="flex w-full flex-wrap items-center justify-end gap-2 lg:w-auto lg:shrink-0">
                         @if ($expense->receipt_path)
                             <a href="{{ route('expenses.receipt', $expense) }}" class="rounded-lg border border-brand-200 px-3 py-2 text-sm font-semibold text-brand-800 transition hover:border-accent-600 hover:text-accent-700">
                                 Nota

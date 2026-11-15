@@ -8,9 +8,21 @@
 }
 
 .feature-carousel-track {
-    padding-inline: max(0px, calc((100% - min(70vw, 52rem)) / 2));
+    padding-inline: max(0px, calc((100% - min(88vw, 52rem)) / 2));
     perspective: 1000px;
     transform-style: preserve-3d;
+}
+
+@media (min-width: 640px) {
+    .feature-carousel-track {
+        padding-inline: max(0px, calc((100% - min(76vw, 60rem)) / 2));
+    }
+}
+
+@media (min-width: 1024px) {
+    .feature-carousel-track {
+        padding-inline: max(0px, calc((100% - min(82vw, 64rem)) / 2));
+    }
 }
 
 [data-carousel-slide] {

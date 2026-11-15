@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/trips/{trip}', [TripController::class, 'destroy'])->name('trips.destroy');
 
     Route::get('/expenses/rekap', [ExpenseController::class, 'report'])->name('expenses.report');
+    Route::get('/expenses/{expense}/receipt/preview', [ExpenseController::class, 'receiptPreview'])->name('expenses.receipt.preview');
     Route::get('/expenses/{expense}/receipt', [ExpenseController::class, 'receipt'])->name('expenses.receipt');
     Route::resource('expenses', ExpenseController::class);
     Route::patch('/vehicle/odometer', [MaintenanceController::class, 'updateOdometer'])->name('vehicles.odometer.update');

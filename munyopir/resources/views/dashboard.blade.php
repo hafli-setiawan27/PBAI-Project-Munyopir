@@ -7,14 +7,14 @@
         <h2 class="sr-only">Fitur Munyopir</h2>
         <div class="feature-carousel-viewport mx-auto w-full max-w-6xl snap-x snap-mandatory overflow-x-auto" data-carousel-viewport>
             <div class="feature-carousel-track flex w-max gap-4">
-                <article class="relative flex min-h-60 w-[min(70vw,52rem)] shrink-0 snap-center items-center overflow-hidden rounded-3xl bg-brand-900 p-5 text-white shadow-lg shadow-brand-900/10 sm:p-7" data-carousel-slide role="group" aria-roledescription="slide" aria-label="1 dari 4">
-                    <div class="relative z-10 max-w-[64%]">
+                <article class="relative flex min-h-64 w-[min(88vw,52rem)] shrink-0 snap-center items-center gap-2 overflow-hidden rounded-3xl bg-brand-900 p-5 text-white shadow-lg shadow-brand-900/10 sm:min-h-72 sm:w-[min(76vw,60rem)] sm:gap-6 sm:p-8 lg:min-h-80 lg:w-[min(82vw,64rem)] lg:p-10" data-carousel-slide role="group" aria-roledescription="slide" aria-label="1 dari 4">
+                    <div class="relative z-10 min-w-0 w-[68%]">
                         <p class="text-sm font-semibold tracking-wide text-sky-300">Perjalanan</p>
-                        <h3 class="mt-2 text-xl font-bold leading-snug sm:text-2xl">Atur jadwal perjalanan</h3>
-                        <p class="mt-2 text-sm leading-6 text-brand-100/90 sm:text-base">Catat lokasi jemput, tujuan, dan waktu perjalanan dengan rapi.</p>
+                        <h3 class="mt-2 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl">Atur jadwal perjalanan</h3>
+                        <p class="mt-3 text-sm leading-6 text-brand-100/90 sm:text-base sm:leading-7">Catat lokasi jemput, tujuan, dan waktu perjalanan dengan rapi.</p>
                     </div>
-                    <div class="pointer-events-none absolute bottom-0 right-0 top-0 flex w-[34%] items-center justify-center" aria-hidden="true">
-                        <svg viewBox="0 0 140 140" class="size-24 sm:size-32">
+                    <div class="pointer-events-none grid w-[30%] shrink-0 place-items-center" aria-hidden="true">
+                        <svg viewBox="0 0 140 140" class="size-20 sm:size-32 lg:size-44">
                             <circle cx="70" cy="70" r="62" fill="#17284C"/>
                             <path d="M70 116s38-30 38-64a38 38 0 1 0-76 0c0 34 38 64 38 64Z" fill="#7398FA" opacity=".92"/>
                             <circle cx="70" cy="51" r="13" fill="#0E1A3A"/>
@@ -23,14 +23,14 @@
                     </div>
                 </article>
 
-                <article class="relative flex min-h-60 w-[min(70vw,52rem)] shrink-0 snap-center items-center overflow-hidden rounded-3xl bg-accent-700 p-5 text-white shadow-lg shadow-accent-900/10 sm:p-7" data-carousel-slide role="group" aria-roledescription="slide" aria-label="2 dari 4">
-                    <div class="relative z-10 max-w-[64%]">
+                <article class="relative flex min-h-64 w-[min(88vw,52rem)] shrink-0 snap-center items-center gap-2 overflow-hidden rounded-3xl bg-accent-700 p-5 text-white shadow-lg shadow-accent-900/10 sm:min-h-72 sm:w-[min(76vw,60rem)] sm:gap-6 sm:p-8 lg:min-h-80 lg:w-[min(82vw,64rem)] lg:p-10" data-carousel-slide role="group" aria-roledescription="slide" aria-label="2 dari 4">
+                    <div class="relative z-10 min-w-0 w-[68%]">
                         <p class="text-sm font-semibold tracking-wide text-accent-100">Pengeluaran</p>
-                        <h3 class="mt-2 text-xl font-bold leading-snug sm:text-2xl">Catat biaya operasional</h3>
-                        <p class="mt-2 text-sm leading-6 text-white/90 sm:text-base">Simpan jumlah dan bukti transaksi agar pengeluaran mudah ditinjau.</p>
+                        <h3 class="mt-2 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl">Catat biaya operasional</h3>
+                        <p class="mt-3 text-sm leading-6 text-white/90 sm:text-base sm:leading-7">Simpan jumlah dan bukti transaksi agar pengeluaran mudah ditinjau.</p>
                     </div>
-                    <div class="pointer-events-none absolute bottom-0 right-0 top-0 flex w-[34%] items-center justify-center" aria-hidden="true">
-                        <svg viewBox="0 0 140 140" class="size-24 sm:size-32">
+                    <div class="pointer-events-none grid w-[30%] shrink-0 place-items-center" aria-hidden="true">
+                        <svg viewBox="0 0 140 140" class="size-20 sm:size-32 lg:size-44">
                             <circle cx="70" cy="70" r="62" fill="#3923AB"/>
                             <path d="M43 31h42l16 16v62H43z" fill="#F5F8FF"/>
                             <path d="M85 31v18h16M55 65h33M55 78h33M55 91h19" fill="none" stroke="#5B3DF5" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
@@ -40,14 +40,14 @@
                     </div>
                 </article>
 
-                <article class="relative flex min-h-60 w-[min(70vw,52rem)] shrink-0 snap-center items-center overflow-hidden rounded-3xl bg-sky-700 p-5 text-white shadow-lg shadow-sky-900/10 sm:p-7" data-carousel-slide role="group" aria-roledescription="slide" aria-label="3 dari 4">
-                    <div class="relative z-10 max-w-[64%]">
+                <article class="relative flex min-h-64 w-[min(88vw,52rem)] shrink-0 snap-center items-center gap-2 overflow-hidden rounded-3xl bg-sky-700 p-5 text-white shadow-lg shadow-sky-900/10 sm:min-h-72 sm:w-[min(76vw,60rem)] sm:gap-6 sm:p-8 lg:min-h-80 lg:w-[min(82vw,64rem)] lg:p-10" data-carousel-slide role="group" aria-roledescription="slide" aria-label="3 dari 4">
+                    <div class="relative z-10 min-w-0 w-[68%]">
                         <p class="text-sm font-semibold tracking-wide text-sky-100">Kendaraan</p>
-                        <h3 class="mt-2 text-xl font-bold leading-snug sm:text-2xl">Pantau informasi kendaraan</h3>
-                        <p class="mt-2 text-sm leading-6 text-white/90 sm:text-base">Lihat profil kendaraan dan perbarui odometer saat diperlukan.</p>
+                        <h3 class="mt-2 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl">Pantau informasi kendaraan</h3>
+                        <p class="mt-3 text-sm leading-6 text-white/90 sm:text-base sm:leading-7">Lihat profil kendaraan dan perbarui odometer saat diperlukan.</p>
                     </div>
-                    <div class="pointer-events-none absolute bottom-0 right-0 top-0 flex w-[34%] items-center justify-center" aria-hidden="true">
-                        <svg viewBox="0 0 140 140" class="size-24 sm:size-32">
+                    <div class="pointer-events-none grid w-[30%] shrink-0 place-items-center" aria-hidden="true">
+                        <svg viewBox="0 0 140 140" class="size-20 sm:size-32 lg:size-44">
                             <circle cx="70" cy="70" r="62" fill="#324FA8"/>
                             <path d="m26 82 7-21c2-6 7-10 14-10h48c7 0 12 3 16 9l9 15 7 3v22H24V85z" fill="#DFEBFF"/>
                             <path d="m44 57-8 22h68L91 57H44Z" fill="#98B9FF"/>
@@ -58,14 +58,14 @@
                     </div>
                 </article>
 
-                <article class="relative flex min-h-60 w-[min(70vw,52rem)] shrink-0 snap-center items-center overflow-hidden rounded-3xl bg-sky-800 p-5 text-white shadow-lg shadow-sky-900/10 sm:p-7" data-carousel-slide role="group" aria-roledescription="slide" aria-label="4 dari 4">
-                    <div class="relative z-10 max-w-[64%]">
+                <article class="relative flex min-h-64 w-[min(88vw,52rem)] shrink-0 snap-center items-center gap-2 overflow-hidden rounded-3xl bg-sky-800 p-5 text-white shadow-lg shadow-sky-900/10 sm:min-h-72 sm:w-[min(76vw,60rem)] sm:gap-6 sm:p-8 lg:min-h-80 lg:w-[min(82vw,64rem)] lg:p-10" data-carousel-slide role="group" aria-roledescription="slide" aria-label="4 dari 4">
+                    <div class="relative z-10 min-w-0 w-[68%]">
                         <p class="text-sm font-semibold tracking-wide text-sky-100">Status perjalanan</p>
-                        <h3 class="mt-2 text-xl font-bold leading-snug sm:text-2xl">Pantau perubahan jadwal</h3>
-                        <p class="mt-2 text-sm leading-6 text-white/90 sm:text-base">Lihat perjalanan yang terjadwal, berubah, selesai, atau dibatalkan.</p>
+                        <h3 class="mt-2 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl">Pantau perubahan jadwal</h3>
+                        <p class="mt-3 text-sm leading-6 text-white/90 sm:text-base sm:leading-7">Lihat perjalanan yang terjadwal, berubah, selesai, atau dibatalkan.</p>
                     </div>
-                    <div class="pointer-events-none absolute bottom-0 right-0 top-0 flex w-[34%] items-center justify-center" aria-hidden="true">
-                        <svg viewBox="0 0 140 140" class="size-24 sm:size-32">
+                    <div class="pointer-events-none grid w-[30%] shrink-0 place-items-center" aria-hidden="true">
+                        <svg viewBox="0 0 140 140" class="size-20 sm:size-32 lg:size-44">
                             <circle cx="70" cy="70" r="62" fill="#17284C"/>
                             <rect x="39" y="30" width="62" height="80" rx="10" fill="#F5F8FF"/>
                             <path d="M53 51h34M53 65h34M53 79h18" stroke="#527BF0" stroke-linecap="round" stroke-width="5"/>
@@ -77,14 +77,14 @@
             </div>
         </div>
 
-        <div class="mx-auto mt-4 flex w-full max-w-6xl items-center justify-between">
+        <div class="mx-auto mt-4 flex w-full max-w-6xl items-center justify-between gap-3">
             <div class="flex items-center gap-2" role="group" aria-label="Pilih fitur">
-                <button class="size-3 rounded-full bg-brand-900 transition focus:outline-none focus:ring-4 focus:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur perjalanan" aria-pressed="true"></button>
-                <button class="size-3 rounded-full bg-brand-200 transition focus:outline-none focus:ring-4 focus:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur pengeluaran" aria-pressed="false"></button>
-                <button class="size-3 rounded-full bg-brand-200 transition focus:outline-none focus:ring-4 focus:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur kendaraan" aria-pressed="false"></button>
-                <button class="size-3 rounded-full bg-brand-200 transition focus:outline-none focus:ring-4 focus:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur status perjalanan" aria-pressed="false"></button>
+                <button class="grid size-9 place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur perjalanan" aria-pressed="true"><span class="size-3 rounded-full bg-brand-900 transition" aria-hidden="true"></span></button>
+                <button class="grid size-9 place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur pengeluaran" aria-pressed="false"><span class="size-3 rounded-full bg-brand-200 transition" aria-hidden="true"></span></button>
+                <button class="grid size-9 place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur kendaraan" aria-pressed="false"><span class="size-3 rounded-full bg-brand-200 transition" aria-hidden="true"></span></button>
+                <button class="grid size-9 place-items-center rounded-full focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-600/20" type="button" data-carousel-indicator aria-label="Tampilkan fitur status perjalanan" aria-pressed="false"><span class="size-3 rounded-full bg-brand-200 transition" aria-hidden="true"></span></button>
             </div>
-            <button class="rounded-lg px-2 py-1 text-xs font-semibold text-brand-700 transition hover:bg-brand-50 focus:outline-none focus:ring-4 focus:ring-accent-600/10" type="button" data-carousel-toggle aria-pressed="false">
+            <button class="inline-flex min-h-10 shrink-0 items-center rounded-lg px-3 py-2 text-xs font-semibold text-brand-700 transition hover:bg-brand-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-600/10 sm:text-sm" type="button" data-carousel-toggle aria-pressed="false">
                 Jeda otomatis
             </button>
         </div>

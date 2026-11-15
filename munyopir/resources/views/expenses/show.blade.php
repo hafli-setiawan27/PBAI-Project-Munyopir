@@ -28,7 +28,13 @@
             </dl>
 
             @if ($expense->receipt_path)
-                <a href="{{ route('expenses.receipt', $expense) }}" class="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl border border-brand-200 px-4 py-3 text-sm font-semibold text-brand-900 transition hover:bg-brand-50">
+                <figure class="mt-8 border-t border-brand-100 pt-6">
+                    <figcaption class="mb-3 text-sm font-semibold text-brand-800">Foto struk</figcaption>
+                    <a href="{{ route('expenses.receipt.preview', $expense) }}" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-2xl border border-brand-100 bg-brand-50">
+                        <img src="{{ route('expenses.receipt.preview', $expense) }}" alt="Foto struk {{ $expense->category->label() }}" class="mx-auto max-h-[36rem] w-full object-contain" decoding="async">
+                    </a>
+                </figure>
+                <a href="{{ route('expenses.receipt', $expense) }}" class="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl border border-brand-200 px-4 py-3 text-sm font-semibold text-brand-900 transition hover:bg-brand-50">
                     Unduh foto nota
                 </a>
             @endif
