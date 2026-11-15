@@ -51,6 +51,14 @@
     transform: scale(0.86);
 }
 
+.is-repositioning [data-carousel-slide] {
+    transition: none;
+}
+
+.is-repositioning .feature-carousel-viewport {
+    scroll-snap-type: none;
+}
+
 .feature-carousel-viewport::-webkit-scrollbar {
     display: none;
 }

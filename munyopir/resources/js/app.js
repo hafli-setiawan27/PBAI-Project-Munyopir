@@ -145,14 +145,23 @@ document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
                 }
             });
 
-            setActiveIndex(closestIndex);
-
             if (closestIndex < slideCount || closestIndex >= slideCount * 2) {
                 const centralIndex = slideCount + (closestIndex % slideCount);
 
+                carousel.classList.add('is-repositioning');
                 setActiveIndex(centralIndex);
                 centerSlideWithoutAnimation(centralIndex);
+
+                window.requestAnimationFrame(() => {
+                    window.requestAnimationFrame(() => {
+                        carousel.classList.remove('is-repositioning');
+                    });
+                });
+
+                return;
             }
+
+            setActiveIndex(closestIndex);
         }, 100);
     });
 
