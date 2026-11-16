@@ -4,13 +4,13 @@
 
 ## Pratinjau aplikasi
 
-Ilustrasi berikut menunjukkan halaman dashboard dalam tata letak desktop dan mobile. Tampilan mobile menggunakan navigasi bawah agar fitur utama mudah dijangkau.
-
-![Pratinjau dashboard Munyopir dalam mode desktop dan mobile](docs/images/dashboard-responsive.svg)
-
 Halaman publik Munyopir menampilkan ringkasan manfaat aplikasi dan dapat dibuka tanpa membuat akun.
 
 ![Halaman awal Munyopir pada layar desktop](docs/images/munyopir-desktop.png)
+
+Ilustrasi berikut menunjukkan halaman dashboard dalam tata letak desktop dan mobile. Tampilan mobile menggunakan navigasi bawah agar fitur utama mudah dijangkau.
+
+![Demo Munyopir](docs/images/munyopir_demo.png)
 
 ## Fitur
 
