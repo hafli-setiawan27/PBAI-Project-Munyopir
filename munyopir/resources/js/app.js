@@ -1,5 +1,52 @@
 ﻿import { compressReceiptImage } from './image-compressor';
 
+document.querySelectorAll('[data-password-toggle]').forEach((toggleButton) => {
+    const passwordInput = document.getElementById(toggleButton.getAttribute('aria-controls'));
+    const hiddenIcon = toggleButton.querySelector('[data-password-hidden-icon]');
+    const visibleIcon = toggleButton.querySelector('[data-password-visible-icon]');
+
+    if (!passwordInput || !hiddenIcon || !visibleIcon) {
+        return;
+    }
+
+    toggleButton.addEventListener('click', () => {
+        const isPasswordVisible = passwordInput.type === 'text';
+
+        passwordInput.type = isPasswordVisible ? 'password' : 'text';
+        toggleButton.setAttribute('aria-pressed', String(!isPasswordVisible));
+        toggleButton.setAttribute('aria-label', isPasswordVisible ? 'Tampilkan kata sandi' : 'Sembunyikan kata sandi');
+        hiddenIcon.classList.toggle('hidden', !isPasswordVisible);
+        visibleIcon.classList.toggle('hidden', isPasswordVisible);
+    });
+});
+
+document.querySelectorAll('[data-logout-dialog]').forEach((dialog) => {
+    const openButton = document.querySelector('[data-logout-dialog-open]');
+    const closeButton = dialog.querySelector('[data-logout-dialog-close]');
+
+    if (!openButton || !closeButton || typeof dialog.showModal !== 'function') {
+        return;
+    }
+
+    openButton.addEventListener('click', () => {
+        dialog.showModal();
+    });
+
+    closeButton.addEventListener('click', () => {
+        dialog.close();
+    });
+
+    dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) {
+            dialog.close();
+        }
+    });
+
+    dialog.addEventListener('close', () => {
+        openButton.focus();
+    });
+});
+
 document.querySelectorAll('[data-receipt-form]').forEach((form) => {
     const receiptInput = form.querySelector('[data-receipt-input]');
     const compressionStatus = form.querySelector('[data-receipt-compression-status]');
@@ -261,3 +308,130 @@ document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
     scrollToSlide(slideCount, 'auto');
     start();
 });
+
+const pageLoader = document.querySelector('[data-page-loader]');
+
+if (pageLoader) {
+    const transitionDuration = 180;
+    const animationDuration = 700;
+    const minimumVisibleDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : animationDuration;
+    const loaderStartedAtKey = 'munyopir-page-loader-started-at';
+    let hideTimeoutId = null;
+    let loaderAnimationStartedAt = Date.now();
+
+    try {
+        const previousLoaderStart = Number(window.sessionStorage.getItem(loaderStartedAtKey));
+
+        if (Number.isFinite(previousLoaderStart) && previousLoaderStart > 0) {
+            loaderAnimationStartedAt = previousLoaderStart;
+            pageLoader.style.setProperty('--page-loader-delay', `${-(Date.now() - previousLoaderStart)}ms`);
+            pageLoader.classList.remove('is-animating');
+            window.requestAnimationFrame(() => pageLoader.classList.add('is-animating'));
+            window.sessionStorage.removeItem(loaderStartedAtKey);
+        }
+    } catch {
+        pageLoader.style.setProperty('--page-loader-delay', '0ms');
+    }
+
+    const hidePageLoader = () => {
+        if (hideTimeoutId !== null) {
+            window.clearTimeout(hideTimeoutId);
+        }
+
+        pageLoader.classList.add('is-hiding');
+        pageLoader.setAttribute('aria-hidden', 'true');
+        hideTimeoutId = window.setTimeout(() => {
+            if (pageLoader.classList.contains('is-hiding')) {
+                pageLoader.hidden = true;
+            }
+        }, transitionDuration);
+    };
+
+    const showPageLoader = () => {
+        if (hideTimeoutId !== null) {
+            window.clearTimeout(hideTimeoutId);
+            hideTimeoutId = null;
+        }
+
+        loaderAnimationStartedAt = Date.now();
+        pageLoader.style.setProperty('--page-loader-delay', '0ms');
+        pageLoader.classList.remove('is-animating');
+
+        try {
+            window.sessionStorage.setItem(loaderStartedAtKey, String(loaderAnimationStartedAt));
+        } catch { }
+
+        pageLoader.hidden = false;
+        pageLoader.setAttribute('aria-hidden', 'false');
+        window.requestAnimationFrame(() => {
+            pageLoader.classList.remove('is-hiding');
+            pageLoader.classList.add('is-animating');
+        });
+    };
+
+    const hideAfterInitialLoad = () => {
+        const elapsedAnimationTime = Date.now() - loaderAnimationStartedAt;
+        const remainingVisibleTime = Math.max(0, minimumVisibleDuration - elapsedAnimationTime);
+
+        hideTimeoutId = window.setTimeout(hidePageLoader, remainingVisibleTime);
+    };
+
+    if (document.readyState === 'complete') {
+        hideAfterInitialLoad();
+    } else {
+        window.addEventListener('load', hideAfterInitialLoad, { once: true });
+    }
+
+    document.addEventListener('click', (event) => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            return;
+        }
+
+        if (!(event.target instanceof Element)) {
+            return;
+        }
+
+        const link = event.target.closest('a[href]');
+
+        if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) {
+            return;
+        }
+
+        const destination = new URL(link.href, window.location.href);
+
+        if (destination.origin !== window.location.origin || !['http:', 'https:'].includes(destination.protocol)) {
+            return;
+        }
+
+        const current = new URL(window.location.href);
+        const isSamePageAnchor = destination.pathname === current.pathname
+            && destination.search === current.search
+            && destination.hash !== '';
+
+        if (!isSamePageAnchor) {
+            showPageLoader();
+        }
+    });
+
+    document.addEventListener('submit', (event) => {
+        const form = event.target;
+
+        if (event.defaultPrevented || !(form instanceof HTMLFormElement) || form.hasAttribute('data-no-page-loader') || (form.target && form.target !== '_self')) {
+            return;
+        }
+
+        showPageLoader();
+    });
+
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            try {
+                window.sessionStorage.removeItem(loaderStartedAtKey);
+            } catch {
+                // Session storage may be unavailable in private browsing modes.
+            }
+
+            hidePageLoader();
+        }
+    });
+}

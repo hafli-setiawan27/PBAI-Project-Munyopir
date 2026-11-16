@@ -9,6 +9,23 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-canvas text-brand-950 antialiased">
+    <div class="page-loader is-animating" data-page-loader role="status" aria-live="polite" aria-label="Memuat Munyopir">
+        <div class="page-loader__content" aria-hidden="true">
+            <svg class="page-loader__wheel" viewBox="0 0 64 64">
+                <g class="page-loader__spin">
+                    <circle class="page-loader__line page-loader__ring" cx="32" cy="32" r="28" pathLength="1"/>
+                    <path class="page-loader__line page-loader__bar" d="M4 32H60" pathLength="1"/>
+                    <path class="page-loader__line page-loader__stem" d="M32 32V60" pathLength="1"/>
+                </g>
+                <g class="page-loader__badge">
+                    <circle class="page-loader__disc" cx="32" cy="32" r="11"/>
+                    <text x="32" y="35.4" text-anchor="middle">my</text>
+                </g>
+            </svg>
+        </div>
+        <span class="sr-only">Memuat halaman</span>
+    </div>
+
     <header class="border-b border-brand-100 bg-white">
         <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-3 py-4 sm:gap-4 sm:px-6">
             <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3" aria-label="Munyopir, beranda">
@@ -49,6 +66,21 @@
                         ]) @if (request()->routeIs('vehicles.*')) aria-current="page" @endif>Kendaraan</a>
                     </nav>
 
+                    <a href="{{ route('notifications.index') }}" @class([
+                        'relative flex size-11 shrink-0 items-center justify-center rounded-xl transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky-300/60',
+                        'bg-brand-50 text-brand-950' => request()->routeIs('notifications.*'),
+                        'text-brand-700 hover:bg-brand-50' => ! request()->routeIs('notifications.*'),
+                    ]) aria-label="Pengingat{{ $unreadNotificationCount > 0 ? ', '.$unreadNotificationCount.' belum dibaca' : '' }}" @if (request()->routeIs('notifications.*')) aria-current="page" @endif>
+                        <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        @if ($unreadNotificationCount > 0)
+                            <span class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-600 px-1 text-[10px] font-bold leading-none text-white ring-2 ring-white" aria-hidden="true">
+                                {{ $unreadNotificationCount > 99 ? '99+' : $unreadNotificationCount }}
+                            </span>
+                        @endif
+                    </a>
+
                     <details class="group relative">
                         <summary class="flex size-11 cursor-pointer list-none items-center justify-center rounded-xl text-brand-700 transition hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky-300/60 [&::-webkit-details-marker]:hidden" aria-label="Menu lainnya">
                             <svg viewBox="0 0 24 24" fill="currentColor" class="size-5" aria-hidden="true">
@@ -58,28 +90,56 @@
                             </svg>
                         </summary>
                         <div class="absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-brand-100 bg-white p-2 shadow-xl shadow-brand-900/10">
-                            <a href="{{ route('notifications.index') }}" @class([
-                                'flex min-h-11 items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition',
-                                'bg-brand-50 text-brand-950' => request()->routeIs('notifications.*'),
-                                'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('notifications.*'),
-                            ]) @if (request()->routeIs('notifications.*')) aria-current="page" @endif>
-                                Pengingat
-                                @if ($unreadNotificationCount > 0)
-                                    <span class="rounded-full bg-accent-100 px-2 py-0.5 text-xs text-accent-800">{{ $unreadNotificationCount }}</span>
-                                @endif
-                            </a>
+                            <div class="border-b border-brand-100 px-2 pb-3 pt-1">
+                                <p class="px-1 text-[10px] font-bold uppercase tracking-[0.12em] text-brand-700/60">Akun aktif</p>
+                                <div class="mt-2 flex min-w-0 items-center gap-3">
+                                    @if (auth()->user()->profile_photo_path)
+                                        <img src="{{ route('settings.profile-photo') }}" alt="Foto profil {{ auth()->user()->name }}" class="size-10 shrink-0 rounded-full border border-brand-100 object-cover">
+                                    @else
+                                        <span class="grid size-10 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-700" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8">
+                                                <circle cx="12" cy="8" r="3.5"/>
+                                                <path d="M5 20a7 7 0 0 1 14 0" stroke-linecap="round"/>
+                                            </svg>
+                                        </span>
+                                    @endif
+                                    <div class="min-w-0">
+                                        <p class="truncate text-sm font-bold text-brand-950">{{ auth()->user()->name }}</p>
+                                        <p class="truncate text-xs text-brand-700/70">{{ auth()->user()->email }}</p>
+                                    </div>
+                                </div>
+                            </div>
                             <a href="{{ route('settings') }}" @class([
-                                'flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold transition',
+                                'flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition',
                                 'bg-brand-50 text-brand-950' => request()->routeIs('settings'),
                                 'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('settings'),
                             ]) @if (request()->routeIs('settings')) aria-current="page" @endif>
+                                <svg viewBox="0 0 24 24" fill="none" class="size-4 shrink-0" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                    <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+                                    <path d="m19.4 15 .1.1a1.8 1.8 0 1 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3.1 1.3v.2a1.8 1.8 0 1 1-3.6 0v-.2a1.8 1.8 0 0 0-3.1-1.3l-.1.1a1.8 1.8 0 1 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-1.3-3.1h-.2a1.8 1.8 0 1 1 0-3.6h.2a1.8 1.8 0 0 0 1.3-3.1l-.1-.1a1.8 1.8 0 1 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3.1-1.3v-.2a1.8 1.8 0 1 1 3.6 0v.2a1.8 1.8 0 0 0 3.1 1.3l.1-.1a1.8 1.8 0 1 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 1.3 3.1h.2a1.8 1.8 0 1 1 0 3.6h-.2a1.8 1.8 0 0 0-1.3 3.1Z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                                 Pengaturan
                             </a>
+                            <a href="{{ route('guide') }}" @class([
+                                'flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition',
+                                'bg-brand-50 text-brand-950' => request()->routeIs('guide'),
+                                'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('guide'),
+                            ]) @if (request()->routeIs('guide')) aria-current="page" @endif>
+                                <svg viewBox="0 0 24 24" fill="none" class="size-4 shrink-0" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20M8 7h8m-8 4h8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Panduan aplikasi
+                            </a>
                             <a href="{{ route('about-developer') }}" @class([
-                                'flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold transition',
+                                'flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition',
                                 'bg-brand-50 text-brand-950' => request()->routeIs('about-developer'),
                                 'text-brand-800 hover:bg-brand-50' => ! request()->routeIs('about-developer'),
                             ]) @if (request()->routeIs('about-developer')) aria-current="page" @endif>
+                                <svg viewBox="0 0 24 24" fill="none" class="size-4 shrink-0" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9"/>
+                                    <path d="M12 11v5m0-8h.01" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                                 Tentang
                             </a>
                         </div>

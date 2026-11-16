@@ -27,8 +27,21 @@
 
                 <div>
                     <label for="password" class="mb-2 block text-sm font-semibold text-brand-800">Kata sandi</label>
-                    <input id="password" name="password" type="password" required autocomplete="current-password"
-                        class="w-full rounded-xl border border-brand-200 px-4 py-3 text-base outline-none transition placeholder:text-brand-700/50 focus:border-accent-600 focus:ring-4 focus:ring-accent-600/10">
+                    <div class="relative">
+                        <input id="password" name="password" type="password" required autocomplete="current-password"
+                            class="w-full rounded-xl border border-brand-200 px-4 py-3 pr-12 text-base outline-none transition placeholder:text-brand-700/50 focus:border-accent-600 focus:ring-4 focus:ring-accent-600/10">
+                        <button type="button" data-password-toggle aria-controls="password" aria-label="Tampilkan kata sandi" aria-pressed="false"
+                            class="absolute inset-y-0 right-0 flex min-h-11 w-12 items-center justify-center rounded-r-xl text-brand-700 transition hover:text-brand-950 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-600/20">
+                            <svg data-password-hidden-icon viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="2.5"/>
+                            </svg>
+                            <svg data-password-visible-icon viewBox="0 0 24 24" fill="none" class="hidden size-5" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="m3 3 18 18M10.6 6.2A10.8 10.8 0 0 1 12 6c6.1 0 9.5 6 9.5 6a16 16 0 0 1-3.2 3.7M6.2 6.2C3.8 7.7 2.5 12 2.5 12s3.4 6 9.5 6a10 10 0 0 0 3.1-.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
                     @error('password')
                         <p class="mt-2 text-sm text-accent-700" role="alert">{{ $message }}</p>
                     @enderror
