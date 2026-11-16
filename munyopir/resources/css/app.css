@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -44,23 +44,26 @@
 }
 
 [data-carousel-position='previous'] {
-    filter: blur(2px);
-    opacity: 0.6;
+    filter: blur(0);
+    opacity: 0.45;
     transform: rotateY(12deg) scale(0.92);
     transform-origin: right center;
+    box-shadow: none;
 }
 
 [data-carousel-position='next'] {
-    filter: blur(2px);
-    opacity: 0.6;
+    filter: blur(0);
+    opacity: 0.45;
     transform: rotateY(-12deg) scale(0.92);
     transform-origin: left center;
+    box-shadow: none;
 }
 
 [data-carousel-position='far'] {
-    filter: blur(4px);
+    filter: blur(0);
     opacity: 0.25;
     transform: scale(0.86);
+    box-shadow: none;
 }
 
 .is-repositioning [data-carousel-slide] {

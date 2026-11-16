@@ -1,4 +1,4 @@
-import { compressReceiptImage } from './image-compressor';
+﻿import { compressReceiptImage } from './image-compressor';
 
 document.querySelectorAll('[data-receipt-form]').forEach((form) => {
     const receiptInput = form.querySelector('[data-receipt-input]');
@@ -20,7 +20,7 @@ document.querySelectorAll('[data-receipt-form]').forEach((form) => {
         }
 
         compressionStatus.classList.remove('hidden');
-        compressionStatus.textContent = 'Memeriksa ukuran foto nota…';
+        compressionStatus.textContent = 'Memeriksa ukuran foto notaâ€¦';
 
         compressionPromise = compressReceiptImage(selectedFile)
             .then((compressedFile) => {
@@ -66,11 +66,12 @@ document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
     const viewport = carousel.querySelector('[data-carousel-viewport]');
     const track = carousel.querySelector('.feature-carousel-track');
     const originalSlides = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
-    const indicators = Array.from(carousel.querySelectorAll('[data-carousel-indicator]'));
+    const previousButton = carousel.querySelector('[data-carousel-previous]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
     const toggleButton = carousel.querySelector('[data-carousel-toggle]');
     const slideCount = originalSlides.length;
 
-    if (!viewport || !track || slideCount !== 4 || indicators.length !== slideCount || !toggleButton) {
+    if (!viewport || !track || slideCount !== 4 || !previousButton || !nextButton || !toggleButton) {
         console.error('The Munyopir feature carousel markup is incomplete.');
 
         return;
@@ -98,15 +99,6 @@ document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
     let isTouching = false;
 
     const updateCarouselState = () => {
-        indicators.forEach((indicator, indicatorIndex) => {
-            const isActive = indicatorIndex === activeIndex % slideCount;
-            const indicatorDot = indicator.querySelector('span');
-
-            indicator.setAttribute('aria-pressed', String(isActive));
-            indicatorDot?.classList.toggle('bg-brand-900', isActive);
-            indicatorDot?.classList.toggle('bg-brand-200', !isActive);
-        });
-
         slides.forEach((slide, slideIndex) => {
             const relativeIndex = (slideIndex - activeIndex + slides.length) % slides.length;
             let position = 'far';
@@ -171,10 +163,11 @@ document.querySelectorAll('[data-feature-carousel]').forEach((carousel) => {
         }, 5000);
     };
 
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            scrollToSlide(slideCount + index);
-        });
+    previousButton.addEventListener('click', () => {
+        scrollToSlide(activeIndex - 1);
+    });
+    nextButton.addEventListener('click', () => {
+        scrollToSlide(activeIndex + 1);
     });
 
     toggleButton.setAttribute('aria-pressed', String(isPaused));
