@@ -10,6 +10,8 @@ Halaman publik Munyopir menampilkan ringkasan manfaat aplikasi dan dapat dibuka 
 
 ![Halaman awal Munyopir pada layar desktop](munyopir/docs/images/munyopir-desktop.png)
 
+![Demo Munyopir](munyopir/docs/images/munyopir_demo.png)
+
 ## Fitur
 
 - **Akun pengguna:** daftar dan masuk, ubah nama serta email, ganti foto profil dan kata sandi, lalu keluar dengan konfirmasi.
