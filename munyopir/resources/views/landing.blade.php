@@ -81,7 +81,7 @@
                 </span>
                 <div class="mt-4 flex items-center gap-2">
                     <h3 class="font-bold text-brand-950">Pengingat kendaraan</h3>
-                    <span class="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-800">Segera hadir</span>
+                    <span class="rounded-full bg-accent-50 px-2 py-0.5 text-[10px] font-bold text-accent-800">Tersedia</span>
                 </div>
                 <p class="mt-2 text-sm leading-6 text-brand-800/80">Rencana pengingat servis berkala serta masa berlaku dokumen kendaraan.</p>
             </article>
