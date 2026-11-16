@@ -6,8 +6,6 @@
 
 Ilustrasi berikut menunjukkan halaman dashboard dalam tata letak desktop dan mobile. Tampilan mobile menggunakan navigasi bawah agar fitur utama mudah dijangkau.
 
-![Pratinjau dashboard Munyopir dalam mode desktop dan mobile](munyopir/docs/images/dashboard-responsive.svg)
-
 Halaman publik Munyopir menampilkan ringkasan manfaat aplikasi dan dapat dibuka tanpa membuat akun.
 
 ![Halaman awal Munyopir pada layar desktop](munyopir/docs/images/munyopir-desktop.png)
